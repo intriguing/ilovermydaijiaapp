@@ -98,7 +98,6 @@ public class MainActivity extends Activity
     private View bankStation;
     private View foursBtn;
     private static MainActivity me = null;
-    private BaiduLocationManager baiduLocationManager;
     private ILoveMyCarApp iLoveMyCarApp;
     private Bitmap icDriverBusy;
     private Bitmap icDriverOffline;
@@ -107,17 +106,14 @@ public class MainActivity extends Activity
     private MapView mapView;
     private View listModeBtn;
     private View mapModeBtn;
-    /*	  private View searchBtn;*/
     private View driverMapView;
     private View driverPointPopView;
     private TextView popDriverNameTv;
     private TextView popDriverYearsTv;
-    /*	  private LinearLayout popDriverStarWarp;*/
     private Bitmap bitmap;
     private SimpleAdapter simpleAdapter;
     private Drawable driverMarker;
     private JSONService jsonService = new JSONServiceImpl();
-    public static final int REQUEST_BROADCAST = 3;
     private View.OnClickListener navClickListener = new View.OnClickListener() {
         public void onClick(View paramAnonymousView) {
             switch (paramAnonymousView.getId()) {
@@ -129,6 +125,7 @@ public class MainActivity extends Activity
                     MainActivity.this.applicationLayout.setVisibility(View.GONE);
                     MainActivity.this.bottomItem2.setBackgroundResource(R.drawable.bottom_bg_normal);
                     MainActivity.this.subItem2.setImageResource(R.drawable.ic_app_normal);
+                    break;
                 case R.id.item_2:
                     MainActivity.this.applicationLayout.setVisibility(View.VISIBLE);
                     MainActivity.this.currentIndex = 1;
@@ -137,6 +134,7 @@ public class MainActivity extends Activity
                     MainActivity.this.driverLayout.setVisibility(View.GONE);
                     MainActivity.this.bottomItem1.setBackgroundResource(R.drawable.bottom_bg_normal);
                     MainActivity.this.subItem1.setImageResource(R.drawable.ic_driver_normal);
+                    break;
             }
         }
     };
@@ -311,16 +309,6 @@ public class MainActivity extends Activity
         //MobclickAgent.onResume(this);
         super.onResume();
     }
-  
-/*    public Object getItem(int paramInt)
-    {
-      return null;
-    }
-    
-    public long getItemId(int paramInt)
-    {
-      return 0L;
-    }*/
 
     @Override
     public void onClick(View v) {
@@ -379,12 +367,8 @@ public class MainActivity extends Activity
         List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
         localArrayList.add(new BasicNameValuePair("pointY", String.valueOf((int) (paramLocation.longitude * 1e6))));
         localArrayList.add(new BasicNameValuePair("pointX", String.valueOf((int) (paramLocation.latitude * 1e6))));
-/*  localArrayList.add(new BasicNameValuePair("status", String.valueOf(this.status)));
-  localArrayList.add(new BasicNameValuePair("pageIndex", String.valueOf(this.driverPageIndex)))*/
-        ;
         this.jsonService.searchNearDriver(localArrayList, new JSONCallBack() {
             public void onFail() {
-/*      MainActivity.this.listView.onRefreshComplete();*/
                 MainActivity.this.mapLoadView.setVisibility(View.GONE);
                 MainActivity.this.driverRefesh = false;
             }
@@ -395,23 +379,20 @@ public class MainActivity extends Activity
                 MainActivity.this.driverPageIndex = driverInfo.getPageIndex();
                 MainActivity.this.driverTotalPage = driverInfo.getTotalPage();
                 if (MainActivity.this.driverRefesh) {
-                    //MainActivity.this.nearDrivers = driverInfo.getDriver();
                     MainActivity.this.nearDrivers = driverInfo.getDriver();
                 }
                 MainActivity.this.mapLoadView.setVisibility(View.GONE);
-/*        MainActivity.this.listView.onRefreshComplete();*/
                 List<Map<String, String>> list = new ArrayList<Map<String, String>>();
                 for (DriverInfo driverInfotemp : MainActivity.this.nearDrivers) {
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("name", driverInfotemp.getName());
                     map.put("info", driverInfotemp.getInfor());
-                    map.put("driverrange", "" + driverInfotemp.getDriverrange());
+                    map.put("driverRange", "" + driverInfotemp.getDriverrange());
                     map.put("_id", "" + driverInfotemp.getUserid());
                     list.add(map);
                 }
-                MainActivity.this.simpleAdapter = new SimpleAdapter(MainActivity.this, list, R.layout.company_item, new String[]{"name", "info", "driverrange"}, new int[]{R.id.name_tv, R.id.company_profile_tv, R.id.price_tv});
+                MainActivity.this.simpleAdapter = new SimpleAdapter(MainActivity.this, list, R.layout.company_item, new String[]{"name", "info", "driverRange"}, new int[]{R.id.name_tv, R.id.company_profile_tv, R.id.price_tv});
                 MainActivity.this.listView.setAdapter(simpleAdapter);
-    /*    MainActivity.this.adapter.notifyDataSetChanged();*/
                 if (MainActivity.this.driverLocationOverlay != null) {
                     MainActivity.this.mapView.getOverlays().remove(MainActivity.this.driverLocationOverlay);
                 }
@@ -422,11 +403,9 @@ public class MainActivity extends Activity
                 if (MainActivity.this.locData != null) {
                     MainActivity.this.mapView.getController().animateTo(new GeoPoint((int) (MainActivity.this.locData.latitude * 1000000.0D), (int) (MainActivity.this.locData.longitude * 1000000.0D)));
                 }
-/*        MainActivity.this.listView.requestRefresh();*/
                 mapView.refresh();
                 UIHelper.showTip(MainActivity.this.getBaseContext(), "刷新成功");
                 MainActivity.this.driverRefesh = false;
-                //return;
             }
         });
     }
@@ -436,21 +415,17 @@ public class MainActivity extends Activity
         private List<DriverInfo> drivers = new ArrayList<DriverInfo>();
         public List<OverlayItem> mGeoList = null;
 
-        @SuppressWarnings("deprecation")
         public DriverLocationOverlay(MapView mapView, Drawable marker, List<DriverInfo> paramList) {
             super(marker, mapView);
             mGeoList = new ArrayList<OverlayItem>();
             this.drivers = paramList;
             Iterator<DriverInfo> iterator = paramList.iterator();
             while (iterator.hasNext()) {
-                DriverInfo driverInfo = (DriverInfo) iterator.next();
+                DriverInfo driverInfo =  iterator.next();
                 Bitmap bitmapg = null;
                 if (driverInfo.getStatus() == 1) {
                     bitmapg = MainActivity.this.icDriverOnLine;
                 }
-  /*  for (;;)
-    {*/
-                // break;
                 if (driverInfo.getStatus() == 2) {
                     bitmapg = MainActivity.this.icDriverBusy;
                 } else {
@@ -467,17 +442,16 @@ public class MainActivity extends Activity
 
         @Override
         protected OverlayItem createItem(int paramInt) {
-            return (OverlayItem) this.mGeoList.get(paramInt);
+            return this.mGeoList.get(paramInt);
         }
 
         @Override
         protected boolean onTap(int paramInt) {
-            OverlayItem localOverlayItem = (OverlayItem) this.mGeoList.get(paramInt);
+            OverlayItem localOverlayItem =  this.mGeoList.get(paramInt);
             MainActivity.this.mapView.getController().animateTo(localOverlayItem.getPoint());
-            final DriverInfo localDriverInfo = (DriverInfo) this.drivers.get(paramInt);
+            final DriverInfo localDriverInfo =  this.drivers.get(paramInt);
             MainActivity.this.popDriverNameTv.setText(localDriverInfo.getName());
             MainActivity.this.popDriverYearsTv.setText("驾龄：" + localDriverInfo.getDrivingYears());
-            //MainActivity.this.popDriverStarWarp.removeAllViews();
             MainActivity.this.mapView.updateViewLayout(MainActivity.this.driverPointPopView, new MapView.LayoutParams(-2, -2, localOverlayItem.getPoint(), 81));
             MainActivity.this.driverPointPopView.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View paramAnonymousView) {
