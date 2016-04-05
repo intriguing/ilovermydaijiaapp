@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:background="@drawable/top_nav_bg" android:layout_width="fill_parent" android:layout_height="@dimen/TitleHeight">
+        <RelativeLayout android:id="@id/back_btn" android:background="@drawable/nav_bg" android:clickable="true" android:layout_width="50.0dip" android:layout_height="fill_parent">
+            <ImageView android:layout_width="25.0dip" android:layout_height="25.0dip" android:src="@drawable/ic_back" android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <TextView android:textSize="@dimen/TitleTextSize" android:textColor="@android:color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看位置" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <FrameLayout android:id="@id/driver_map_view" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+        <com.baidu.mapapi.map.MapView android:id="@id/map_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <Button android:textSize="14.0sp" android:layout_gravity="bottom|right|center" android:id="@id/location_btn" android:background="@drawable/my_location_btn" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="5.0dip" android:layout_marginBottom="5.0dip" />
+    </FrameLayout>
+</LinearLayout>

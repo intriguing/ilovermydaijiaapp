@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <View android:layout_width="0.0dip" android:layout_height="50.0dip" />
+    <FrameLayout android:padding="0.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:background="@drawable/white_pop_background" android:paddingLeft="10.0dip" android:paddingTop="10.0dip" android:paddingRight="10.0dip" android:paddingBottom="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="25.0dip" android:layout_marginTop="25.0dip" android:layout_marginRight="25.0dip">
+            <TextView android:textSize="16.0sp" android:textColor="@color/black" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="司机状态:" />
+            <RelativeLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="15.0dip" android:layout_marginBottom="15.0dip">
+                <RelativeLayout android:id="@id/driver_all_btn" android:background="@drawable/pop_checked_bg" android:clickable="true" android:layout_width="60.0dip" android:layout_height="30.0dip" android:layout_alignParentLeft="true" android:layout_centerVertical="true">
+                    <TextView android:textSize="11.0sp" android:textColor="@color/white" android:id="@id/driver_all_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="不限" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_checked" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/driver_online_btn" android:clickable="true" android:layout_width="60.0dip" android:layout_height="30.0dip" android:layout_centerInParent="true" android:layout_centerVertical="true">
+                    <TextView android:textSize="11.0sp" android:textColor="@color/black" android:id="@id/driver_online_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="空闲" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_checked" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+                </RelativeLayout>
+                <RelativeLayout android:id="@id/driver_offline_btn" android:clickable="true" android:layout_width="60.0dip" android:layout_height="30.0dip" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+                    <TextView android:textSize="11.0sp" android:textColor="@color/black" android:id="@id/driver_offline_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="忙碌" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+                    <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_checked" android:layout_alignParentRight="true" android:layout_centerVertical="true" />
+                </RelativeLayout>
+            </RelativeLayout>
+            <View android:background="@color/gray" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_marginBottom="10.0dip" />
+            <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:minWidth="200.0dip">
+                <Button android:textColor="@color/white" android:gravity="center" android:id="@id/driver_ok_btn" android:background="@drawable/orange_btn" android:layout_width="70.0dip" android:layout_height="38.0dip" android:layout_marginRight="3.0dip" android:text="确定" android:layout_weight="1.0" />
+                <Button android:textColor="@color/white" android:gravity="center" android:id="@id/driver_cancel_btn" android:background="@drawable/black_btn" android:layout_width="70.0dip" android:layout_height="38.0dip" android:layout_marginLeft="3.0dip" android:text="取消" android:layout_weight="1.0" />
+            </LinearLayout>
+        </LinearLayout>
+        <Button android:layout_gravity="top|right|center" android:id="@id/driver_close_btn" android:background="@drawable/close_btn" android:layout_width="50.0dip" android:layout_height="50.0dip" android:layout_marginTop="3.0dip" android:layout_marginRight="7.0dip" />
+    </FrameLayout>
+</LinearLayout>

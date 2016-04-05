@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:background="@drawable/pop_background" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="50.0dip" android:minWidth="100.0dip" android:minHeight="55.0dip">
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="0.0dip" android:layout_marginBottom="5.0dip" android:layout_weight="1.0">
+            <TextView android:textSize="16.0dip" android:textColor="@color/white" android:id="@id/name_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:singleLine="true" android:layout_alignParentLeft="true" />
+            <TextView android:textColor="@color/white" android:id="@id/tel_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:text="" android:singleLine="true" android:layout_toRightOf="@id/name_tv" android:layout_alignParentRight="true" />
+        </RelativeLayout>
+        <TextView android:textColor="@color/white" android:id="@id/address_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="5.0dip" android:text="" android:maxLines="2" />
+        <Button android:textColor="@color/white" android:id="@id/go_btn" android:background="@drawable/orange_btn" android:layout_width="100.0dip" android:layout_height="35.0dip" android:text="导航" />
+    </LinearLayout>
+</LinearLayout>

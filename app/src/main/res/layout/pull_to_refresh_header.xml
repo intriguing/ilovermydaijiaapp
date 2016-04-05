@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ProgressBar android:id="@id/pull_to_refresh_progress" android:visibility="gone" android:layout_width="30.0dip" android:layout_height="30.0dip" android:layout_marginLeft="50.0dip" android:layout_marginRight="2.0dip" android:indeterminateDrawable="@drawable/loading_drawable" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <ImageView android:id="@id/pull_to_refresh_image" android:visibility="visible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="50.0dip" android:layout_marginRight="2.0dip" android:src="@drawable/ic_pulltorefresh_arrow" android:layout_alignParentLeft="true" android:layout_centerVertical="true" />
+        <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/state" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerInParent="true">
+            <TextView android:textColor="@color/black" android:id="@id/state_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="下拉刷新..." />
+            <TextView android:textSize="10.0dip" android:textColor="@color/black" android:id="@id/last_update_time_tv" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="第一次刷新..." />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

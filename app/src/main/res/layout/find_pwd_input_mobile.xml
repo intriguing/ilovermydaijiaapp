@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/background" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:background="@drawable/top_nav_bg" android:layout_width="fill_parent" android:layout_height="@dimen/TitleHeight">
+        <RelativeLayout android:id="@id/back_btn" android:background="@drawable/nav_bg" android:clickable="true" android:layout_width="50.0dip" android:layout_height="fill_parent">
+            <ImageView android:layout_width="25.0dip" android:layout_height="25.0dip" android:src="@drawable/ic_back" android:layout_centerInParent="true" />
+        </RelativeLayout>
+        <TextView android:textSize="@dimen/TitleTextSize" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="找回密码" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:padding="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <EditText android:id="@id/mobile_et" android:background="@drawable/edit_box" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_marginTop="15.0dip" android:hint="请输入你注册时用到的手机号码" android:maxLength="11" android:numeric="integer" />
+        <Button android:textColor="@color/white" android:id="@id/next_btn" android:background="@drawable/orange_btn" android:layout_width="fill_parent" android:layout_height="42.0dip" android:layout_marginTop="10.0dip" android:text="下一步" />
+    </LinearLayout>
+</LinearLayout>
