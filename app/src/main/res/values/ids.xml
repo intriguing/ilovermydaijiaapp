@@ -102,6 +102,7 @@
     <item name="call_btn" type="id">false</item>
     <item name="company_profile_tv" type="id">false</item>
     <item name="price_tv" type="id">false</item>
+    <item name="sex_et" type="id">false</item>
     <!--
     <item type="id" name="comment_view">false</item>
     <item type="id" name="comment_list_view">false</item>

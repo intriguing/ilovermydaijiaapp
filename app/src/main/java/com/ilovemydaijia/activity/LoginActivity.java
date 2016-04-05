@@ -65,9 +65,9 @@ public class LoginActivity
       //return;
     case R.id.back_btn: 
       finish();
-/*    case R.id.register_btn: 
+    case R.id.register_btn:
       startActivity(new Intent(this, RegisterInputMobileActivity.class));
-      return;*/
+      return;
    default:
     SystemUtils.hideSoft(this);
     String paramViewt = this.mobileEt.getText().toString();

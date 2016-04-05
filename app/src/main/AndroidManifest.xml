@@ -27,6 +27,7 @@
         <activity android:name="com.ilovemydaijia.activity.LoginActivity" />
         <activity android:name="com.ilovemydaijia.activity.MainActivity" />
         <activity android:name="com.ilovemydaijia.activity.DriverInfoActivity"/>
+        <activity android:name="com.ilovemydaijia.activity.RegisterInputMobileActivity"/>
         <activity android:hardwareAccelerated="false" android:name="com.ilovemydaijia.activity.DriverLocationViewActivity"/>
         <activity android:hardwareAccelerated="false" android:name="com.ilovemydaijia.activity.LBSActivity"/>
         <!-- <activity android:name="com.daija.ILoveMyCarApp"/> -->

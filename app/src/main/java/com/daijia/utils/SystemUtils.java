@@ -25,7 +25,7 @@ public class SystemUtils
   
   public static String getNativePhoneNumber(Context paramContext)
   {
-    return ((TelephonyManager)paramContext.getSystemService("phone")).getLine1Number();
+    return ((TelephonyManager)paramContext.getSystemService(Context.TELEPHONY_SERVICE)).getLine1Number();
   }
   
   public static final int getScreenHeight(Activity paramActivity)
@@ -40,19 +40,19 @@ public class SystemUtils
   
   public static void hideSoft(Activity paramActivity)
   {
-    InputMethodManager localInputMethodManager = (InputMethodManager)paramActivity.getSystemService("input_method");
+    InputMethodManager localInputMethodManager = (InputMethodManager)paramActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
     if (localInputMethodManager != null)
     {
-      View paramActivityt = paramActivity.getCurrentFocus();
-      if (paramActivity != null) {
-        localInputMethodManager.hideSoftInputFromWindow(paramActivityt.getWindowToken(), 0);
+      View paramActivityT = paramActivity.getCurrentFocus();
+      if (paramActivityT != null) {
+        localInputMethodManager.hideSoftInputFromWindow(paramActivityT.getWindowToken(), 0);
       }
     }
   }
   
   public static boolean isNetworkAvailable(Context paramContext)
   {
-	ConnectivityManager paramContextt = (ConnectivityManager)paramContext.getSystemService("connectivity");
+	ConnectivityManager paramContextt = (ConnectivityManager)paramContext.getSystemService(Context.CONNECTIVITY_SERVICE);
     int i=0;
     NetworkInfo[] paramContextttg=null;
     if (paramContext != null)
