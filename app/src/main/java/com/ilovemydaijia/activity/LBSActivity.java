@@ -67,7 +67,7 @@ import java.util.Map;
 
 public class LBSActivity
         extends Activity
-        implements MKGeneralListener, OnClickListener, AnimationListener, OnItemClickListener {
+        implements MKGeneralListener, OnClickListener, OnItemClickListener {
     MyLocationOverlay myLocationOverlay = null;
     LocationClient mLocClient;
     LocationData locData = null;
@@ -103,7 +103,7 @@ public class LBSActivity
     private Bitmap markerBitmap;
     public List<MKPoiInfo> mkPoiInfos = new ArrayList<MKPoiInfo>();
     private MKSearch mkSearch;
-/*    private Button moreBtn;*/
+    /*    private Button moreBtn;*/
     private GeoPoint myGeoPoint;
     private TextView nameTv;
     private int pageIndex = 0;
@@ -169,30 +169,9 @@ public class LBSActivity
         this.mapMode = findViewById(R.id.map_mode);
         this.listMode = findViewById(R.id.list_mode);
         this.poiListView = (ListView) findViewById(R.id.poi_list_view);
-/*        this.poiListView.addFooterView(this.footerView);*/
-        //this.poiListView.hideFooterView();
         this.poiListView.setOnItemClickListener(this);//
-   /* this.poiListView.setOnRefreshListener(new PullToRefreshListView.OnRefreshListener()
-    {
-      public void onRefresh()
-      {
-        if (LBSActivity.this.myGeoPoint != null)
-        {
-          LBSActivity.this.refesh = true;
-          if (LBSActivity.this.poiType == 6)
-          {
-            LBSActivity.this.mkSearch.poiSearchNearBy(LBSActivity.this.keyWord, LBSActivity.this.myGeoPoint, 2000);
-            return;
-          }
-          LBSActivity.this.mkSearch.poiSearchNearBy(LBSActivity.this.keyWord, LBSActivity.this.myGeoPoint, 10000);
-          return;
-        }
-        LBSActivity.this.poiListView.onRefreshComplete();
-        UIHelper.showTip(LBSActivity.this.getBaseContext(), "无法确定我的位置!");
-      }
-    });*/
         this.mapView = ((MapView) findViewById(R.id.map_view));
-        this.mapController=this.mapView.getController();
+        this.mapController = this.mapView.getController();
         this.mapController.setZoom(16);
         this.mapController.enableClick(true);
         // 定位初始化
@@ -255,31 +234,24 @@ public class LBSActivity
                         LBSActivity.this.mkPoiInfos.clear();
                     }
                     LBSActivity.this.mkPoiInfos.addAll(localArrayList);
-                    List<Map<String,String>> list=new ArrayList<Map<String, String>>();
-                    for( MKPoiInfo localMKPoiInfo:LBSActivity.this.mkPoiInfos){
-                        Map<String,String> map=new HashMap<String,String>();
+                    List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+                    for (MKPoiInfo localMKPoiInfo : LBSActivity.this.mkPoiInfos) {
+                        Map<String, String> map = new HashMap<String, String>();
                         map.put("name_tv", localMKPoiInfo.name);
-                        if(StringUtils.isNullOrEmpty(localMKPoiInfo.phoneNum)){
-                            map.put("phoneNum",localMKPoiInfo.phoneNum);
-                        }else{
-                            map.put("phoneNum","电话:" + localMKPoiInfo.phoneNum);
+                        if (StringUtils.isNullOrEmpty(localMKPoiInfo.phoneNum)) {
+                            map.put("phoneNum", localMKPoiInfo.phoneNum);
+                        } else {
+                            map.put("phoneNum", "电话:" + localMKPoiInfo.phoneNum);
                         }
-                        map.put("address",localMKPoiInfo.address);
+                        map.put("address", localMKPoiInfo.address);
                         list.add(map);
                     }
-                    LBSActivity.this.poiAdapters = new SimpleAdapter(LBSActivity.this,list,R.layout.poi_item,new String[]{"name_tv","phoneNum","address"},new int[]{R.id.name_tv,R.id.phone_number_tv,R.id.address_tv});
+                    LBSActivity.this.poiAdapters = new SimpleAdapter(LBSActivity.this, list, R.layout.poi_item, new String[]{"name_tv", "phoneNum", "address"}, new int[]{R.id.name_tv, R.id.phone_number_tv, R.id.address_tv});
                     LBSActivity.this.poiListView.setAdapter(LBSActivity.this.poiAdapters);
                     LBSActivity.this.loadMapOverlaysAnimateToMyLocation();
-                   // LBSActivity.this.poiAdapters.notifyDataSetChanged();
+                    // LBSActivity.this.poiAdapters.notifyDataSetChanged();
                     LBSActivity.this.pageIndex = paramMKPoiResult.getPageIndex();
                     LBSActivity.this.totalPages = paramMKPoiResult.getNumPages();
-               /*     if (LBSActivity.this.pageIndex < LBSActivity.this.totalPages - 1) {
-                        LBSActivity.this.moreBtn.setEnabled(true);
-                        LBSActivity.this.moreBtn.setText("查看更多");
-//        this.poiListView.showFooterView();
-                        return;
-                    }*/
-//      this.poiListView.hideFooterView();
                     return;
                 }
                 UIHelper.showTip(LBSActivity.this, "抱歉，未找到结果");
@@ -366,33 +338,19 @@ public class LBSActivity
                 this.markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.box_bank);
                 this.keyWord = "银行";
                 break;
-                // continue;
+            // continue;
             case 6:
                 this.markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.box_restautantl);
                 this.keyWord = "餐饮";
                 break;
-                // continue;
+            // continue;
             case 7:
                 this.markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.box_4s);
                 this.keyWord = "4s店";
                 break;
         }
-        int  i = SystemUtils.getScreenWidth(this) /15;
+        int i = SystemUtils.getScreenWidth(this) / 15;
         this.markerBitmap = BitmapProvider.getBitmap(this.markerBitmap, i, i);
-      /*  List<Map<String,String>> list=new ArrayList<Map<String, String>>();
-        for( MKPoiInfo localMKPoiInfo:this.mkPoiInfos){
-            Map<String,String> map=new HashMap<String,String>();
-            map.put("name_tv", localMKPoiInfo.name);
-            if(StringUtils.isNullOrEmpty(localMKPoiInfo.phoneNum)){
-                map.put("phoneNum",localMKPoiInfo.phoneNum);
-            }else{
-                map.put("phoneNum","电话:" + localMKPoiInfo.phoneNum);
-            }
-            map.put("address",localMKPoiInfo.address);
-            list.add(map);
-        }
-        this.poiAdapters = new SimpleAdapter(this,list,R.layout.poi_item,new String[]{"name_tv","phoneNum","address"},new int[]{R.id.name_tv,R.id.phone_number_tv,R.id.address_tv});
-        this.poiListView.setAdapter(this.poiAdapters);*/
     }
 
     private void loadMapOverlaysAnimateTo(GeoPoint paramGeoPoint) {
@@ -402,7 +360,7 @@ public class LBSActivity
             this.mapView.removeView(this.poiPopView);
             this.mapView.addView(this.poiPopView, new MapView.LayoutParams(-2, -2, null, 51));
 
-            MyPOIOverlay paramGeoPoints = new MyPOIOverlay(this.mapView,new BitmapDrawable(this.markerBitmap), this.mkPoiInfos);
+            MyPOIOverlay paramGeoPoints = new MyPOIOverlay(this.mapView, new BitmapDrawable(this.markerBitmap), this.mkPoiInfos);
             paramGeoPoints.addItem(paramGeoPoints.mGeoList);
             this.mapView.getOverlays().clear();
             this.mapView.getOverlays().add(paramGeoPoints);
@@ -434,36 +392,18 @@ public class LBSActivity
     }
 
     private void updateDisplayPopWindow(MKPoiInfo paramMKPoiInfo) {
+        String str = "";
         if (!StringUtils.isNullOrEmpty(paramMKPoiInfo.phoneNum)) {
-            String str = "电话:" + paramMKPoiInfo.phoneNum;
-            this.nameTv.setText(paramMKPoiInfo.name);
-            this.telTv.setText(str);
-            this.addressTv.setText(paramMKPoiInfo.address);
-            this.mapView.updateViewLayout(this.poiPopView, new MapView.LayoutParams(-2, -2, paramMKPoiInfo.pt, 81));
-            this.poiPopView.setVisibility(View.VISIBLE);
-            this.mapView.getController().animateTo(paramMKPoiInfo.pt);
+            str = "电话:" + paramMKPoiInfo.phoneNum;
         }
+        this.nameTv.setText(paramMKPoiInfo.name);
+        this.telTv.setText(str);
+        this.addressTv.setText(paramMKPoiInfo.address);
+        this.mapView.updateViewLayout(this.poiPopView, new MapView.LayoutParams(-2, -2, paramMKPoiInfo.pt, 81));
+        this.poiPopView.setVisibility(View.VISIBLE);
+        this.mapView.getController().animateTo(paramMKPoiInfo.pt);
+
     }
-
-    @Override
-    public void onAnimationEnd(Animation paramAnimation) {
-        if (!this.displayList) {
-            this.mapMode.setVisibility(View.VISIBLE);
-            this.listMode.setVisibility(View.GONE);
-            if (this.myGeoPoint != null) {
-                loadMapOverlaysAnimateToMyLocation();
-            }
-            return;
-        }
-        this.mapMode.setVisibility(View.GONE);
-        this.listMode.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onAnimationRepeat(Animation paramAnimation) {}
-
-    @Override
-    public void onAnimationStart(Animation paramAnimation) {}
 
     @Override
     public void onClick(View paramView) {
@@ -479,8 +419,6 @@ public class LBSActivity
                     this.poiPopView.setVisibility(View.GONE);
                     showRoute(this.myGeoPoint, this.currentPoi.pt);
                     this.pageIndex += 1;
-     /*               this.moreBtn.setEnabled(false);
-                    this.moreBtn.setText("正在加载...");*/
                     this.mkSearch.goToPoiPage(this.pageIndex);
                 }
                 break;
@@ -488,31 +426,29 @@ public class LBSActivity
                 finish();
                 break;
             case R.id.list_mode_btn:
-                    this.mapMode.setVisibility(View.GONE);
-                    this.listMode.setVisibility(View.VISIBLE);
-                  //  this.mapMode.startAnimation(this.endRightAnimation);
-                    //this.listMode.startAnimation(this.endLeftAnimation);
-                    this.displayList = true;
+                this.mapMode.setVisibility(View.GONE);
+                this.listMode.setVisibility(View.VISIBLE);
+                this.displayList = true;
                 break;
             case R.id.map_mode_btn:
-                    this.mapMode.setVisibility(View.VISIBLE);
-                    this.listMode.setVisibility(View.GONE);
-                  //  this.mapMode.startAnimation(this.rightAnimation);
-                 //   this.listMode.startAnimation(this.leftAnimation);
-                    this.displayList = false;
+                this.mapMode.setVisibility(View.VISIBLE);
+                this.listMode.setVisibility(View.GONE);
+                this.displayList = false;
                 break;
         }
     }
 
     @Override
-    public void onGetNetworkState(int paramInt) {}
+    public void onGetNetworkState(int paramInt) {
+    }
 
     @Override
-    public void onGetPermissionState(int paramInt) {}
+    public void onGetPermissionState(int paramInt) {
+    }
 
     @Override
     public void onItemClick(AdapterView<?> paramAdapterView, View paramView, int paramInt, long paramLong) {
-        paramInt -= 1;
+        // paramInt -= 1;
         if ((paramInt >= 0) && (paramInt < this.mkPoiInfos.size())) {
             this.mapMode.setVisibility(View.VISIBLE);
             this.listMode.setVisibility(View.GONE);
@@ -522,6 +458,7 @@ public class LBSActivity
             updateDisplayPopWindow(mkPoiInfo);
         }
     }
+
     @Override
     protected void onDestroy() {
         mLocClient.stop();
@@ -547,80 +484,25 @@ public class LBSActivity
         super.onResume();
     }
 
-   public static class ListViewItem {
-        public TextView addressTv;
-        public TextView distanceTv;
-        public MKPoiInfo mkPoiInfo;
-        public TextView nameTv;
-        public TextView phoneNumberTv;
-    }
-
-  /*  public class MyAdapter
-            extends BaseAdapter {
-        public  MyAdapter() {
-        	super();
-        }
-        @Override
-        public int getCount() {
-            return LBSActivity.this.mkPoiInfos.size();
-        }
-        @Override
-        public Object getItem(int paramInt) {
-            return null;
-        }
-        @Override
-        public long getItemId(int paramInt) {
-            return 0L;
-        }
-
-        @Override
-        public View getView(int paramInt, View paramView, ViewGroup paramViewGroup) {
-            ListViewItem listviewitem ;
-            MKPoiInfo localMKPoiInfo =  LBSActivity.this.mkPoiInfos.get(paramInt);
-            if (paramView != null) {
-                listviewitem = (ListViewItem) paramView.getTag();}else{
-                View paramViewt = LBSActivity.this.getLayoutInflater().inflate(R.layout.poi_item, null);
-                listviewitem = new ListViewItem();
-                listviewitem.nameTv = ((TextView) paramViewt.findViewById(R.id.name_tv));
-                listviewitem.phoneNumberTv = ((TextView) paramViewt.findViewById(R.id.phone_number_tv));
-                listviewitem.addressTv = ((TextView) paramViewt.findViewById(R.id.address_tv));
-                listviewitem.distanceTv = ((TextView) paramViewt.findViewById(R.id.distance_tv));
-                listviewitem.distanceTv.setVisibility(View.GONE);
-            }
-                //paramViewGroup = paramView;
-                listviewitem.nameTv.setText(localMKPoiInfo.name);
-                if (StringUtils.isNullOrEmpty(localMKPoiInfo.phoneNum)) {
-                    listviewitem.phoneNumberTv.setText("");
-                }else{
-                    listviewitem.phoneNumberTv.setText("电话:" + localMKPoiInfo.phoneNum);
-                }
-                listviewitem.addressTv.setText(localMKPoiInfo.address);
-                listviewitem.mkPoiInfo = localMKPoiInfo;
-                //  return paramViewGroup;
-                paramViewGroup.setTag(listviewitem);
-                return paramViewGroup;
-            }
-
-    }*/
-
     class MyPOIOverlay
             extends ItemizedOverlay<OverlayItem> {
         public List<OverlayItem> mGeoList = new ArrayList<OverlayItem>();
         public List<MKPoiInfo> mkpoiInfo = new ArrayList<MKPoiInfo>();
         private final Paint paint = new Paint();
+
         public MyPOIOverlay(MapView mapView, Drawable marker, List<MKPoiInfo> paramList) {
             super(marker, mapView);
             this.mkpoiInfo = paramList;
             this.paint.setAntiAlias(true);
-            for(int i=0;i<this.mkpoiInfo.size();i++){
-                OverlayItem overlayItem=new OverlayItem(mkpoiInfo.get(i).pt , "p" + i, "point" + i);
+            for (int i = 0; i < this.mkpoiInfo.size(); i++) {
+                OverlayItem overlayItem = new OverlayItem(mkpoiInfo.get(i).pt, "p" + i, "point" + i);
                 overlayItem.setMarker(marker);
                 this.mGeoList.add(overlayItem);
             }
         }
 
         protected OverlayItem createItem(int paramInt) {
-            return  this.mGeoList.get(paramInt);
+            return this.mGeoList.get(paramInt);
         }
 
 
@@ -664,7 +546,7 @@ public class LBSActivity
             if (isFirstLoc) {
                 // 移动地图到定位点
                 Log.d("LocationOverlay", "receive location, animate to it");
-                LBSActivity.this.myGeoPoint=new GeoPoint(
+                LBSActivity.this.myGeoPoint = new GeoPoint(
                         (int) (locData.latitude * 1e6),
                         (int) (locData.longitude * 1e6));
                 mapController.animateTo(LBSActivity.this.myGeoPoint);
