@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class RegisterInputMobileActivity
     private EditText passEt;
     private EditText infoEt;
     private EditText userEt;
-    private EditText sexEt;
+    private RadioGroup sexEtt;
     private JSONService jsonService = new JSONServiceImpl();
 
     public void onClick(final View paramView) {
@@ -45,7 +46,12 @@ public class RegisterInputMobileActivity
                 String pass = this.passEt.getText().toString();
                 String info = this.infoEt.getText().toString();
                 String user = this.userEt.getText().toString();
-                String sex  = this.sexEt.getText().toString();
+                String sex;
+                        if(this.sexEtt.getCheckedRadioButtonId()==R.id.male){
+                            sex="男";
+                        }else{
+                            sex="女";
+                        }
                 if (!StringUtils.isMobile(string)) {
                     UIHelper.showTip(this, "请输入正确的手机号码!");
                     return;
@@ -95,6 +101,6 @@ public class RegisterInputMobileActivity
         this.passEt = (EditText) findViewById(R.id.pass_et);
         this.userEt = (EditText) findViewById(R.id.user_etd);
         this.infoEt = (EditText) findViewById(R.id.info_et);
-        this.sexEt = (EditText) findViewById(R.id.sex_et);
+        this.sexEtt = (RadioGroup) findViewById(R.id.sex_et);
     }
 }
