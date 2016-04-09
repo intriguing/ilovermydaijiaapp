@@ -60,9 +60,9 @@ public class LoginActivity
   {
     switch (paramView.getId())
     {
-/*    case R.id.forget_pwd_tv: 
-      startActivity(new Intent(this, FindPwdInputMobileActivity.class));*/
-      //return;
+    case R.id.forget_pwd_tv:
+      startActivity(new Intent(this, FindPwdInputMobileActivity.class));
+      return;
     case R.id.back_btn: 
       finish();
     case R.id.register_btn:

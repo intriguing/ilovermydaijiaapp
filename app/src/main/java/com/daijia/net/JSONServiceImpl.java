@@ -29,15 +29,16 @@ public class JSONServiceImpl
     public void findPwdUpdate(List<NameValuePair> paramList,
                               JSONCallBack paramJSONCallBack) {
         // TODO Auto-generated method stub
-        flag = false;
+        this.flag = false;
         paramJSONCallBackbase = paramJSONCallBack;
         this.paramListbase = paramList;
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
-                String str = HttpUtils.getHttpData("http://5257auto.com:8080/mycar/api/login.php", paramListbase);
+                flag = false;
+                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/user/updatePass", paramListbase);
                 Log.i("TAG", "R is :" + str);
                 if (str != null) {
-                    if (StringUtils.isNullOrEmpty(str)) {
+                    if (!StringUtils.isNullOrEmpty(str)) {
                         try {
                             baseInfo = new BaseInfo(new JSONObject(str));
                             flag = true;
@@ -189,19 +190,20 @@ public class JSONServiceImpl
     public void sendFindPwdCode(List<NameValuePair> paramList,
                                 JSONCallBack paramJSONCallBack) {
         // TODO Auto-generated method stub
-        flag = false;
+        this.flag = false;
         paramJSONCallBackbase = paramJSONCallBack;
         this.paramListbase = paramList;
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
-                String str = HttpUtils.getHttpData("http://5257auto.com:8080/mycar/api/send_find_pwd_code.php", paramListbase);
+                flag = false;
+                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/user/validate", paramListbase);
+                Log.i("TAG", "R is :" + str);
                 if (str != null) {
-                    if (StringUtils.isNullOrEmpty(str)) {
+                    if (!StringUtils.isNullOrEmpty(str)) {
                         try {
-                            driversInfo = new DriversInfo(new JSONObject(str));
+                            baseInfo = new BaseInfo(new JSONObject(str));
                             flag = true;
                         } catch (JSONException e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                     }
@@ -210,9 +212,9 @@ public class JSONServiceImpl
                     public void run() {
                         if (flag) {
                             paramJSONCallBackbase.onSuccess(baseInfo);
-                            return;
+                        } else {
+                            paramJSONCallBackbase.onFail();
                         }
-                        paramJSONCallBackbase.onFail();
                     }
                 });
             }
