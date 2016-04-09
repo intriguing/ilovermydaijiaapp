@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import com.daija.BaseActivity;
 import com.daija.models.BaseInfo;
+import com.daija.models.BaseInfos;
 import com.daijia.net.JSONCallBack;
 import com.daijia.net.JSONService;
 import com.daijia.net.JSONServiceImpl;
@@ -50,6 +51,7 @@ public class LoginActivity
   private Button okBtn;
   private EditText passwordEt;
   private Button registerBtn;
+  private   String paramViewt;
  private JSONService jsonService = new JSONServiceImpl();
 /* private ILoveMyCarApp iLoveMyCarApp;
   private String mobile;
@@ -70,7 +72,7 @@ public class LoginActivity
       return;
    default:
     SystemUtils.hideSoft(this);
-    String paramViewt = this.mobileEt.getText().toString();
+    paramViewt = this.mobileEt.getText().toString();
     final String str = this.passwordEt.getText().toString();
     if (!StringUtils.isMobile(paramViewt))
     {
@@ -102,11 +104,13 @@ public class LoginActivity
       
       public void onSuccess(Object paramAnonymousObject)
       {
-    	BaseInfo baseInfo = (BaseInfo)paramAnonymousObject;
+    	BaseInfos baseInfo = (BaseInfos)paramAnonymousObject;
         if(baseInfo.isCode()){
           UIHelper.closeProgressDialog();
           UIHelper.showTip(LoginActivity.this, "登陆成功!");
           Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("USER_PHONE",paramViewt);
+            intent.putExtra("DEMO",baseInfo.getDemo());
           LoginActivity.this.startActivity(intent);
         }else{
           UIHelper.closeProgressDialog();

@@ -5,9 +5,15 @@
     <item name="mobile_et" type="id">false</item>
     <item name="info_ets" type="id">false</item>
     <item name="password_et" type="id">false</item>
+    <item name="driver_radio" type="id">false</item>
     <item name="login_btn" type="id">false</item>
+    <item name="logins_btn" type="id">false</item>
+    <item name="driver_online_radio" type="id">false</item>
+    <item name="driver_offline_radio" type="id">false</item>
+    <item name="driver_busy_radio" type="id">false</item>
     <item name="forget_pwd_tv" type="id">false</item>
     <item name="register_btn" type="id">false</item>
+    <item name="register_btns" type="id">false</item>
     <item name="content_tv" type="id">false</item>
     <item name="msg_content_tv" type="id">false</item>
     <item name="next_btn" type="id">false</item>
@@ -106,6 +112,7 @@
     <item name="sex_et" type="id">false</item>
     <item name="male" type="id">false</item>
     <item name="female" type="id">false</item>
+    <item name="driverYear_et" type="id">false</item>
     <!--
     <item type="id" name="comment_view">false</item>
     <item type="id" name="comment_list_view">false</item>

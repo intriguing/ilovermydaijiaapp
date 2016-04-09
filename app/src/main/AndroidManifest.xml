@@ -30,6 +30,7 @@
         <activity android:name="com.ilovemydaijia.activity.RegisterInputMobileActivity"/>
         <activity android:name="com.ilovemydaijia.activity.FindPwdInputMobileActivity"/>
         <activity android:name="com.ilovemydaijia.activity.FindPwdNewPwdActivity"/>
+        <activity android:name="com.ilovemydaijia.activity.DriverRegisterActivity" />
         <activity android:hardwareAccelerated="false" android:name="com.ilovemydaijia.activity.DriverLocationViewActivity"/>
         <activity android:hardwareAccelerated="false" android:name="com.ilovemydaijia.activity.LBSActivity"/>
         <service

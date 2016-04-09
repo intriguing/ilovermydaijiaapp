@@ -20,9 +20,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +46,7 @@ import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.baidu.platform.comapi.map.Projection;
 import com.daija.ILoveMyCarApp;
 import com.daija.location.BaiduLocationManager;
+import com.daija.models.BaseInfo;
 import com.daija.models.DriverInfo;
 import com.daija.models.DriversInfo;
 import com.daijia.net.JSONCallBack;
@@ -51,6 +54,7 @@ import com.daijia.net.JSONService;
 import com.daijia.net.JSONServiceImpl;
 import com.daijia.utils.BitmapProvider;
 import com.daijia.utils.DisplayUtil;
+import com.daijia.utils.SystemUtils;
 import com.daijia.utils.UIHelper;
 import com.example.ilovermydaijia.R;
 import com.umeng.analytics.MobclickAgent;
@@ -81,15 +85,19 @@ public class MainActivity extends Activity
     private View mapLoadView;
     private ListView listView;
     private boolean init = true;
-    /*private GeoPoint geoPoint;*/
+    private GeoPoint geoPoint;
     private int currentIndex = 0;
     private View driverLayout;
     private View applicationLayout;
+    private View settingLayout;
+    private String phone;
     /*	  private View userInfoLayout;*/
     private ImageView subItem1;
     private ImageView subItem2;
+    private ImageView subItem3;
     private View bottomItem1;
     private View bottomItem2;
+    private View bottomItem3;
     private View parkingBtn;
     private View restaurantBtn;
     private View hotelBtn;
@@ -113,6 +121,10 @@ public class MainActivity extends Activity
     private Bitmap bitmap;
     private SimpleAdapter simpleAdapter;
     private Drawable driverMarker;
+    private Button register_btn;
+    private Button logins_btn;
+    private RadioGroup driver_radio;
+    private int state;
     private JSONService jsonService = new JSONServiceImpl();
     private View.OnClickListener navClickListener = new View.OnClickListener() {
         public void onClick(View paramAnonymousView) {
@@ -125,6 +137,9 @@ public class MainActivity extends Activity
                     MainActivity.this.applicationLayout.setVisibility(View.GONE);
                     MainActivity.this.bottomItem2.setBackgroundResource(R.drawable.bottom_bg_normal);
                     MainActivity.this.subItem2.setImageResource(R.drawable.ic_app_normal);
+                    MainActivity.this.settingLayout.setVisibility(View.GONE);
+                    MainActivity.this.bottomItem3.setBackgroundResource(R.drawable.bottom_bg_normal);
+                    MainActivity.this.subItem3.setImageResource(R.drawable.ic_setting_normal);
                     break;
                 case R.id.item_2:
                     MainActivity.this.applicationLayout.setVisibility(View.VISIBLE);
@@ -134,7 +149,21 @@ public class MainActivity extends Activity
                     MainActivity.this.driverLayout.setVisibility(View.GONE);
                     MainActivity.this.bottomItem1.setBackgroundResource(R.drawable.bottom_bg_normal);
                     MainActivity.this.subItem1.setImageResource(R.drawable.ic_driver_normal);
+                    MainActivity.this.settingLayout.setVisibility(View.GONE);
+                    MainActivity.this.bottomItem3.setBackgroundResource(R.drawable.bottom_bg_normal);
+                    MainActivity.this.subItem3.setImageResource(R.drawable.ic_setting_normal);
                     break;
+                case R.id.item_3:
+                    MainActivity.this.settingLayout.setVisibility(View.VISIBLE);
+                    MainActivity.this.currentIndex = 2;
+                    MainActivity.this.bottomItem3.setBackgroundResource(R.drawable.bottom_bg_pressed);
+                    MainActivity.this.subItem3.setImageResource(R.drawable.ic_setting_normal);
+                    MainActivity.this.driverLayout.setVisibility(View.GONE);
+                    MainActivity.this.bottomItem1.setBackgroundResource(R.drawable.bottom_bg_normal);
+                    MainActivity.this.subItem1.setImageResource(R.drawable.ic_driver_normal);
+                    MainActivity.this.applicationLayout.setVisibility(View.GONE);
+                    MainActivity.this.bottomItem2.setBackgroundResource(R.drawable.bottom_bg_normal);
+                    MainActivity.this.subItem2.setImageResource(R.drawable.ic_app_normal);
             }
         }
     };
@@ -159,6 +188,19 @@ public class MainActivity extends Activity
         }
         setContentView(R.layout.main);
         me = this;
+        this.phone = getIntent().getStringExtra("USER_PHONE");
+        this.state = getIntent().getIntExtra("DEMO", 1);
+        this.register_btn = (Button) findViewById(R.id.register_btns);
+        this.driver_radio = (RadioGroup) findViewById(R.id.driver_radio);
+        this.logins_btn = (Button) findViewById(R.id.logins_btn);
+        if (this.state == 1) {
+            this.logins_btn.setEnabled(false);
+            this.driver_radio.setEnabled(false);
+            this.register_btn.setOnClickListener(this);
+        } else {
+            this.register_btn.setEnabled(false);
+            this.logins_btn.setOnClickListener(this);
+        }
         this.gasStatinBtn = findViewById(R.id.gas_station_btn);
         this.bankStation = findViewById(R.id.bank_btn);
         this.hotelBtn = findViewById(R.id.hotel_btn);
@@ -175,10 +217,13 @@ public class MainActivity extends Activity
         this.foursBtn.setOnClickListener(this);
         this.subItem1 = ((ImageView) findViewById(R.id.sub_item_1));
         this.subItem2 = ((ImageView) findViewById(R.id.sub_item_2));
+        this.subItem3 = ((ImageView) findViewById(R.id.sub_item_3));
         this.bottomItem1 = findViewById(R.id.item_1);
         this.bottomItem2 = findViewById(R.id.item_2);
+        this.bottomItem3 = findViewById(R.id.item_3);
         this.bottomItem1.setOnClickListener(this.navClickListener);
         this.bottomItem2.setOnClickListener(this.navClickListener);
+        this.bottomItem3.setOnClickListener(this.navClickListener);
         this.icDriverOnLine = BitmapFactory.decodeResource(getResources(), R.drawable.ic_driver_online);
         this.icDriverOffline = BitmapFactory.decodeResource(getResources(), R.drawable.ic_driver_offine);
         this.icDriverBusy = BitmapFactory.decodeResource(getResources(), R.drawable.ic_driver_busy);
@@ -210,6 +255,7 @@ public class MainActivity extends Activity
         this.driverMarker = new BitmapDrawable(this.bitmap);
         this.driverLayout = findViewById(R.id.driver_layout);
         this.applicationLayout = findViewById(R.id.application_layout);
+        this.settingLayout = findViewById(R.id.setting_layout);
         this.listView = (ListView) findViewById(R.id.driver_list_view);
         this.listView.setOnItemClickListener(new OnItemClickListenerImpl());
         this.mapLoadView = findViewById(R.id.map_load_view);
@@ -270,9 +316,10 @@ public class MainActivity extends Activity
             if (isFirstLoc) {
                 // 移动地图到定位点
                 Log.d("LocationOverlay", "receive location, animate to it");
-                mapController.animateTo(new GeoPoint(
+                MainActivity.this.geoPoint = new GeoPoint(
                         (int) (locData.latitude * 1e6),
-                        (int) (locData.longitude * 1e6)));
+                        (int) (locData.longitude * 1e6));
+                mapController.animateTo(MainActivity.this.geoPoint);
                 myLocationOverlay.setLocationMode(LocationMode.FOLLOWING);
                 MainActivity.this.searchDriver(locData);
             }
@@ -359,9 +406,55 @@ public class MainActivity extends Activity
                 this.listView.setVisibility(View.GONE);
                 // searchDriver(locData);
                 return;
+            case R.id.register_btns:
+                Intent intent=new Intent(this, DriverRegisterActivity.class);
+                intent.putExtra("USER_PHONE",this.phone);
+                intent.putExtra("POINTX",this.geoPoint.getLatitudeE6());
+                intent.putExtra("POINTY", this.geoPoint.getLongitudeE6());
+                startActivity(intent);
+                return;
+            case R.id.logins_btn:
+                String string;
+                if(this.driver_radio.getCheckedRadioButtonId()==R.id.driver_online_radio){
+                    string="1";
+                }else if(this.driver_radio.getCheckedRadioButtonId()==R.id.driver_offline_radio){
+                    string="3";
+                }else {
+                    string="2";
+                }
+                this.selectDriver(this.phone,string);return;
         }
     }
+    private void selectDriver(String phone,String statusDriver){
+        UIHelper.showProgressDialog(this, "正在进行状态修改...");
+        List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
+        localArrayList.add(new BasicNameValuePair("phone", phone));
+        localArrayList.add(new BasicNameValuePair("status", statusDriver));
+        this.jsonService.changeDriver(localArrayList, new JSONCallBack() {
+            @Override
+            public void onFail() {
+                if (!SystemUtils.isNetworkAvailable(MainActivity.this)) {
+                    UIHelper.closeProgressDialog();
+                    UIHelper.showTip(MainActivity.this, MainActivity.this.getString(R.string.net_error));
+                    return;
+                }
+                UIHelper.closeProgressDialog();
+                UIHelper.showTip(MainActivity.this, MainActivity.this.getString(R.string.server_error));
+            }
 
+            @Override
+            public void onSuccess(Object paramObject) {
+                BaseInfo baseInfo=(BaseInfo)paramObject;
+                if(baseInfo.isCode()){
+                    UIHelper.closeProgressDialog();
+                    UIHelper.showTip(MainActivity.this.getBaseContext(), "选择成功！");
+                }else {
+                    UIHelper.closeProgressDialog();
+                    UIHelper.showTip(MainActivity.this.getBaseContext(), "选择失败！");
+                }
+            }
+        });
+    }
     public void searchDriver(LocationData paramLocation) {
         this.mapLoadView.setVisibility(View.VISIBLE);
         List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
@@ -421,7 +514,7 @@ public class MainActivity extends Activity
             this.drivers = paramList;
             Iterator<DriverInfo> iterator = paramList.iterator();
             while (iterator.hasNext()) {
-                DriverInfo driverInfo =  iterator.next();
+                DriverInfo driverInfo = iterator.next();
                 Bitmap bitmapg = null;
                 if (driverInfo.getStatus() == 1) {
                     bitmapg = MainActivity.this.icDriverOnLine;
@@ -447,9 +540,9 @@ public class MainActivity extends Activity
 
         @Override
         protected boolean onTap(int paramInt) {
-            OverlayItem localOverlayItem =  this.mGeoList.get(paramInt);
+            OverlayItem localOverlayItem = this.mGeoList.get(paramInt);
             MainActivity.this.mapView.getController().animateTo(localOverlayItem.getPoint());
-            final DriverInfo localDriverInfo =  this.drivers.get(paramInt);
+            final DriverInfo localDriverInfo = this.drivers.get(paramInt);
             MainActivity.this.popDriverNameTv.setText(localDriverInfo.getName());
             MainActivity.this.popDriverYearsTv.setText("驾龄：" + localDriverInfo.getDrivingYears());
             MainActivity.this.mapView.updateViewLayout(MainActivity.this.driverPointPopView, new MapView.LayoutParams(-2, -2, localOverlayItem.getPoint(), 81));

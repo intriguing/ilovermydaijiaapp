@@ -41,7 +41,6 @@ public class DriverInfoActivity
   implements View.OnClickListener
 {
   public static final String DRIVER_INFO = "DRIVER_INFO";
-  public static final String SHAKE_USER = "SHAKE_USER";
   private static final String TAG = "DriverInfoActivity";
   private String apiKey = null;
   private View backBtn;
@@ -256,7 +255,7 @@ public class DriverInfoActivity
     case R.id.star_rank_btn5: */
     case R.id.back_btn: this.finish();break;
     case R.id.location_btn:     Intent tintentg = new Intent(this, DriverLocationViewActivity.class);
-     tintentg.putExtra("DRIVER_INFO", this.driver);
+     tintentg.putExtra(DRIVER_INFO, this.driver);
     startActivity(tintentg);break;
     case R.id.call_btn: 
     	if(!StringUtils.isNullOrEmpty(this.mobile)){
@@ -402,7 +401,7 @@ public class DriverInfoActivity
     this.defaultHead = getResources().getDrawable(R.drawable.ic_launcher);
     this.backBtn = findViewById(R.id.back_btn);
     this.backBtn.setOnClickListener(this);
-    this.driver = ((DriverInfo)getIntent().getSerializableExtra("DRIVER_INFO"));
+    this.driver = ((DriverInfo)getIntent().getSerializableExtra(DRIVER_INFO));
     this.nameTv = ((TextView)findViewById(R.id.name_tv));
     this.stateTv = ((TextView)findViewById(R.id.state_tv));
 /*    this.starWarpView = ((LinearLayout)findViewById(R.id.star_warp_view));*/

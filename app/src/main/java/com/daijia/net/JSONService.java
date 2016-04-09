@@ -8,28 +8,28 @@ import org.apache.http.NameValuePair;
 
 public interface JSONService
 { 
-  public  void findPwdUpdate(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
+  void findPwdUpdate(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  public  void getDriverComments(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
+   void getDriverComments(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  public  void getDrivers(JSONCallBack paramJSONCallBack);
+  void getDrivers(JSONCallBack paramJSONCallBack);
   
-  public  void login(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
+  void login(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  public  void postDriverComment(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
+  void postDriverComment(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  public  void register(List<NameValuePair> paramList, File paramFile, JSONCallBack paramJSONCallBack);
+  void register(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  public  void searchNearDriver(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
+  void searchNearDriver(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  public  void sendFindPwdCode(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
+  void sendFindPwdCode(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  public  void sendRegCode(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
+  void sendRegCode(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  public  void updatePwd(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
+  void updatePwd(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  public  void updateUserInfo(List<NameValuePair> paramList, File paramFile, JSONCallBack paramJSONCallBack);
+  void updateUserInfo(List<NameValuePair> paramList, File paramFile, JSONCallBack paramJSONCallBack);
   
-  public void saveuserinfo(List<NameValuePair> localArrayList,JSONCallBack jsonCallBack);
-
+  void saveuserinfo(List<NameValuePair> localArrayList,JSONCallBack jsonCallBack);
+  void changeDriver(List<NameValuePair> localArrayList,JSONCallBack jsonCallBack);
 }

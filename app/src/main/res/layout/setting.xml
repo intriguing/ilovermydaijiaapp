@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@color/bg_gray" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:background="@drawable/top_nav_bg" android:layout_width="fill_parent" android:layout_height="@dimen/TitleHeight">
+        <TextView android:textSize="@dimen/TitleTextSize" android:textColor="@color/white" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="设置" android:layout_centerInParent="true" />
+    </RelativeLayout>
+    <ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:paddingLeft="15.0dip" android:paddingRight="15.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <Button android:textColor="@color/white" android:id="@id/register_btns" android:background="@drawable/green_btn" android:clickable="true" android:layout_width="fill_parent" android:layout_height="45.0dip" android:layout_marginTop="10.0dip" android:layout_marginBottom="10.0dip" android:text="注册成为司机" />
+            <RadioGroup
+                android:id="@+id/driver_radio"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:layout_marginTop="10.0dip"
+                android:orientation="horizontal"
+                android:background="@drawable/edit_box"
+                android:paddingLeft="10.0dip"
+                android:paddingRight="10.0dip"
+                android:checkedButton="@+id/driver_online_radio"
+                android:weightSum="1">
+                <RadioButton
+                    android:id="@+id/driver_online_radio"
+                    android:text="上线"
+                    android:layout_width="78dp"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                    android:textColor="#b54d4d"
+                    android:textColorHighlight="#af2f2f"
+                    android:textSize="25dp"
+                    android:layout_weight="0.25" />
+                <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/driver_offline_radio"
+                android:text="下线"
+                android:checked="false"
+                android:textColor="#a11111"
+                android:textColorHighlight="#9a1818"
+                android:layout_weight="0.13"
+                android:textSize="25dp" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/driver_busy_radio"
+                    android:text="忙碌"
+                    android:checked="false"
+                    android:textColor="#a11111"
+                    android:textColorHighlight="#9a1818"
+                    android:layout_weight="0.13"
+                    android:textSize="25dp" />
+            </RadioGroup>
+            <Button android:textColor="@color/white" android:id="@id/logins_btn" android:background="@drawable/green_btn" android:clickable="true" android:layout_width="fill_parent" android:layout_height="45.0dip" android:layout_marginTop="10.0dip" android:layout_marginBottom="10.0dip" android:text="选择" />
+            <Button android:textColor="@color/white" android:id="@id/logout_btn" android:background="@drawable/red_btn" android:clickable="true" android:layout_width="fill_parent" android:layout_height="45.0dip" android:layout_marginTop="10.0dip" android:layout_marginBottom="10.0dip" android:text="退出登录" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.daija.models.BaseInfo;
+import com.daija.models.BaseInfos;
 import com.daija.models.DriversInfo;
 import com.daijia.utils.StringUtils;
 import com.daijia.utils.ThreadManager;
@@ -20,6 +21,7 @@ public class JSONServiceImpl
     private Handler handler = new Handler();
     private boolean flag = false;
     private BaseInfo baseInfo = null;
+    private BaseInfos baseInfos = null;
     private DriversInfo driversInfo;
     // private BaseCodeInfo baseCodeInfo;
     private JSONCallBack paramJSONCallBackbase;
@@ -116,7 +118,7 @@ public class JSONServiceImpl
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
                         try {
-                            baseInfo = new BaseInfo(new JSONObject(str));
+                            baseInfos = new BaseInfos(new JSONObject(str));
                             flag = true;
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -126,7 +128,7 @@ public class JSONServiceImpl
                 JSONServiceImpl.this.handler.post(new Runnable() {
                     public void run() {
                         if (flag) {
-                            paramJSONCallBackbase.onSuccess(baseInfo);
+                            paramJSONCallBackbase.onSuccess(baseInfos);
                         } else {
                             paramJSONCallBackbase.onFail();
                         }
@@ -144,10 +146,38 @@ public class JSONServiceImpl
     }
 
     @Override
-    public void register(List<NameValuePair> paramList, File paramFile,
-                         JSONCallBack paramJSONCallBack) {
+    public void register(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack) {
         // TODO Auto-generated method stub
-
+        flag = false;
+        paramJSONCallBackbase = paramJSONCallBack;
+        this.paramListbase = paramList;
+        ThreadManager.getPool().execute(new Runnable() {
+            public void run() {
+                flag = false;
+                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/register", paramListbase);
+                Log.i("TAG", "R is :" + str);
+                if (str != null) {
+                    if (!StringUtils.isNullOrEmpty(str)) {
+                        try {
+                            baseInfo = new BaseInfo(new JSONObject(str));
+                            flag = true;
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                JSONServiceImpl.this.handler.post(new Runnable() {
+                    public void run() {
+                        if (flag) {
+                            paramJSONCallBackbase.onSuccess(baseInfo);
+                        } else {
+                            paramJSONCallBackbase.onFail();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -252,6 +282,40 @@ public class JSONServiceImpl
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
                 String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/user/register", paramListbase);
+                flag = false;
+                if (str != null) {
+                    if (!StringUtils.isNullOrEmpty(str)) {
+                        try {
+                            baseInfo = new BaseInfo(new JSONObject(str));
+                            flag = true;
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                JSONServiceImpl.this.handler.post(new Runnable() {
+                    public void run() {
+                        if (flag) {
+                            paramJSONCallBackbase.onSuccess(baseInfo);
+                            return;
+                        }
+                        paramJSONCallBackbase.onFail();
+                    }
+                });
+            }
+        });
+    }
+
+    @Override
+    public void changeDriver(List<NameValuePair> localArrayList, JSONCallBack jsonCallBack) {
+        // TODO Auto-generated method stub
+        flag = false;
+        paramJSONCallBackbase = jsonCallBack;
+        this.paramListbase = localArrayList;
+        ThreadManager.getPool().execute(new Runnable() {
+            public void run() {
+                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/driverStatus", paramListbase);
                 flag = false;
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {

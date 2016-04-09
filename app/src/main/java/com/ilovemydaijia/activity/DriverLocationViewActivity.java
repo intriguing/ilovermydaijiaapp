@@ -103,7 +103,7 @@ public class DriverLocationViewActivity extends Activity implements
 		this.locationBtn = findViewById(R.id.location_btn);
 		this.locationBtn.setOnClickListener(this);
 		this.driverInfo = ((DriverInfo) getIntent().getSerializableExtra(
-				"DRIVER_INFO"));
+				DRIVER_INFO));
 		this.backBtn = findViewById(R.id.back_btn);
 		this.backBtn.setOnClickListener(this);
 		/* this.baiduLocationManager = BaiduLocationManager.getInstance(this); */
