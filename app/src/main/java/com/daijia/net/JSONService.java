@@ -32,4 +32,5 @@ public interface JSONService
   
   void saveuserinfo(List<NameValuePair> localArrayList,JSONCallBack jsonCallBack);
   void changeDriver(List<NameValuePair> localArrayList,JSONCallBack jsonCallBack);
+  void findDriverByPhone(List<NameValuePair> localArrayList,JSONCallBack jsonCallBack);
 }

@@ -43,7 +43,6 @@ public class DriverRegisterActivity extends BaseActivity implements View.OnClick
     private EditText driverYear_et;
     private View backBtn;
     private JSONService jsonService = new JSONServiceImpl();
-    public static boolean flag=false;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -81,7 +80,6 @@ public class DriverRegisterActivity extends BaseActivity implements View.OnClick
                         if (baseInfo.isCode()) {
                             UIHelper.closeProgressDialog();
                             UIHelper.showTip(DriverRegisterActivity.this, "注册代驾成功！");
-                            flag=true;
                             DriverRegisterActivity.this.finish();
                         } else {
                             UIHelper.closeProgressDialog();

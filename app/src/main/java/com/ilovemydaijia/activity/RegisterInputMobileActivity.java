@@ -83,7 +83,7 @@ public class RegisterInputMobileActivity
                             RegisterInputMobileActivity.this.startActivity((Intent) paramAnonymousObject);
                         } else {
                             UIHelper.closeProgressDialog();
-                            UIHelper.showTip(RegisterInputMobileActivity.this, "注册失败用户名已经被注册");
+                            UIHelper.showTip(RegisterInputMobileActivity.this, "注册失败用户名已经被注册或你已经用这手机注册过号码");
                         }
                     }
                 });

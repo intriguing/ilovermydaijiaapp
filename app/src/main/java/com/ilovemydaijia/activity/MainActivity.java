@@ -412,6 +412,22 @@ public class MainActivity extends Activity
                 intent.putExtra("POINTX",this.geoPoint.getLatitudeE6());
                 intent.putExtra("POINTY", this.geoPoint.getLongitudeE6());
                 startActivity(intent);
+                List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
+                localArrayList.add(new BasicNameValuePair("phone", phone));
+                this.jsonService.findDriverByPhone(localArrayList, new JSONCallBack(){
+
+                    @Override
+                    public void onFail() {
+                        return;
+                    }
+
+                    @Override
+                    public void onSuccess(Object paramObject) {
+                        MainActivity.this.register_btn.setEnabled(false);
+                        MainActivity.this.logins_btn.setEnabled(true);
+                        MainActivity.this.logins_btn.setOnClickListener(MainActivity.this);
+                    }
+                });
                 return;
             case R.id.logins_btn:
                 String string;
@@ -422,7 +438,7 @@ public class MainActivity extends Activity
                 }else {
                     string="2";
                 }
-                this.selectDriver(this.phone,string);return;
+                this.selectDriver(this.phone, string);return;
         }
     }
     private void selectDriver(String phone,String statusDriver){
@@ -430,6 +446,8 @@ public class MainActivity extends Activity
         List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
         localArrayList.add(new BasicNameValuePair("phone", phone));
         localArrayList.add(new BasicNameValuePair("status", statusDriver));
+        localArrayList.add(new  BasicNameValuePair("pointX", this.geoPoint.getLatitudeE6()+""));
+        localArrayList.add(new  BasicNameValuePair("pointY", this.geoPoint.getLongitudeE6()+""));
         this.jsonService.changeDriver(localArrayList, new JSONCallBack() {
             @Override
             public void onFail() {
@@ -444,11 +462,11 @@ public class MainActivity extends Activity
 
             @Override
             public void onSuccess(Object paramObject) {
-                BaseInfo baseInfo=(BaseInfo)paramObject;
-                if(baseInfo.isCode()){
+                BaseInfo baseInfo = (BaseInfo) paramObject;
+                if (baseInfo.isCode()) {
                     UIHelper.closeProgressDialog();
                     UIHelper.showTip(MainActivity.this.getBaseContext(), "选择成功！");
-                }else {
+                } else {
                     UIHelper.closeProgressDialog();
                     UIHelper.showTip(MainActivity.this.getBaseContext(), "选择失败！");
                 }

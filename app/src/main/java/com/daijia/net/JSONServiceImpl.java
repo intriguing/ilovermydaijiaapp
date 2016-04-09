@@ -341,4 +341,37 @@ public class JSONServiceImpl
         });
     }
 
+    @Override
+    public void findDriverByPhone(List<NameValuePair> localArrayList, JSONCallBack jsonCallBack) {
+        flag = false;
+        paramJSONCallBackbase = jsonCallBack;
+        this.paramListbase = localArrayList;
+        ThreadManager.getPool().execute(new Runnable() {
+            public void run() {
+                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/driverByPhone", paramListbase);
+                flag = false;
+                if (str != null) {
+                    if (!StringUtils.isNullOrEmpty(str)) {
+                        try {
+                            baseInfo = new BaseInfo(new JSONObject(str));
+                            flag = true;
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                JSONServiceImpl.this.handler.post(new Runnable() {
+                    public void run() {
+                        if (flag) {
+                            paramJSONCallBackbase.onSuccess(baseInfo);
+                            return;
+                        }
+                        paramJSONCallBackbase.onFail();
+                    }
+                });
+            }
+        });
+    }
+
 }
