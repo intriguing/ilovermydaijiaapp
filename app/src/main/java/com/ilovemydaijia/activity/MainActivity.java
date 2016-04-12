@@ -300,10 +300,10 @@ public class MainActivity extends Activity
             if (location == null)
                 return;
 
-            //locData.latitude = location.getLatitude();
-            //locData.longitude = location.getLongitude();
-            locData.latitude = 38.843716;
-            locData.longitude = 115.436641;
+            locData.latitude = location.getLatitude();
+            locData.longitude = location.getLongitude();
+         /*locData.latitude = 38.853716;
+            locData.longitude = 115.446641;*/
             // 如果不显示定位精度圈，将accuracy赋值为0即可
             locData.accuracy = location.getRadius();
             // 此处可以设置 locData的方向信息, 如果定位 SDK 未返回方向信息，用户可以自己实现罗盘功能添加方向信息。
@@ -423,9 +423,12 @@ public class MainActivity extends Activity
 
                     @Override
                     public void onSuccess(Object paramObject) {
+                        BaseInfo baseInfo=(BaseInfo)paramObject;
+                        if(baseInfo.isCode()){
                         MainActivity.this.register_btn.setEnabled(false);
                         MainActivity.this.logins_btn.setEnabled(true);
                         MainActivity.this.logins_btn.setOnClickListener(MainActivity.this);
+                        }
                     }
                 });
                 return;
@@ -536,8 +539,7 @@ public class MainActivity extends Activity
                 Bitmap bitmapg = null;
                 if (driverInfo.getStatus() == 1) {
                     bitmapg = MainActivity.this.icDriverOnLine;
-                }
-                if (driverInfo.getStatus() == 2) {
+                }else if (driverInfo.getStatus() == 2) {
                     bitmapg = MainActivity.this.icDriverBusy;
                 } else {
                     bitmapg = MainActivity.this.icDriverOffline;

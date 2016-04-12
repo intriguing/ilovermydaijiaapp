@@ -178,10 +178,10 @@ public class DriverLocationViewActivity extends Activity implements
 			if (location == null)
 				return;
 
-			// locData.latitude = location.getLatitude();
-			// locData.longitude = location.getLongitude();
-			locData.latitude = 38.843716;
-			locData.longitude = 115.436641;
+			 locData.latitude = location.getLatitude();
+			 locData.longitude = location.getLongitude();
+			//locData.latitude = 38.843716;
+			//locData.longitude = 115.436641;
 			// 如果不显示定位精度圈，将accuracy赋值为0即可
 			locData.accuracy = location.getRadius();
 			// 此处可以设置 locData的方向信息, 如果定位 SDK 未返回方向信息，用户可以自己实现罗盘功能添加方向信息。
@@ -245,8 +245,7 @@ public class DriverLocationViewActivity extends Activity implements
 			this.driverInfo = paramDriverInfo;
 			if (this.driverInfo.getStatus() == 1) {
 				bitmapg = DriverLocationViewActivity.this.icDriverOnLine;
-			}
-			if (this.driverInfo.getStatus() == 2) {
+			}else if (this.driverInfo.getStatus() == 2) {
 				bitmapg = DriverLocationViewActivity.this.icDriverBusy;
 			} else {
 				bitmapg = DriverLocationViewActivity.this.icDriverOffline;
