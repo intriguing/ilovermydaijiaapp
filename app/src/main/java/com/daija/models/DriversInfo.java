@@ -17,8 +17,7 @@ public DriversInfo(JSONObject jsonObject) throws JSONException {
 	this.driver=new ArrayList<DriverInfo>();
     JSONArray array=jsonObject.getJSONArray("DriversInfo");
     for (int i = 0; i < array.length(); i++) {
-		JSONObject ob = new JSONObject();
-		ob = (JSONObject) array.get(i);
+		JSONObject ob = (JSONObject) array.get(i);
 		DriverInfo driverinfo=new DriverInfo(ob);
 		this.driver.add(driverinfo);
 

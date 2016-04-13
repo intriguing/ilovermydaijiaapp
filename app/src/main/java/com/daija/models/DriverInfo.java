@@ -18,6 +18,16 @@ public class DriverInfo implements Serializable {
 	private int drivingYears;
 	private int pointX;
 	private int pointY;
+
+	public int getRange() {
+		return range;
+	}
+
+	public void setRange(int range) {
+		this.range = range;
+	}
+
+	private int range;
 	public DriverInfo(JSONObject paramJSONObject) {
 		try {
 			this.userid=paramJSONObject.getInt("id");

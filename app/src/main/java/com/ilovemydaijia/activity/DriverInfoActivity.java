@@ -107,7 +107,7 @@ public class DriverInfoActivity
 /*        this.starWarpView.removeAllViews();*/
         this.drivingYearsTv.setText("驾龄：" + this.driver.getDrivingYears());
 /*          this.designatedDrivingNumTv.setText("代驾次数：" + this.driver.get);*/
-        this.distanceTv.setText("距离我：" + StringUtils.getLocDesc(this.driver.getDriverrange()));
+        this.distanceTv.setText("距离我：" + StringUtils.getLocDesc(this.driver.getRange()));
         if (this.driver.getSex() != 1) {
             str = "男";
             localImageView = this.sexIv;
@@ -124,7 +124,7 @@ public class DriverInfoActivity
 /*    	        this.starWarpView.removeAllViews();*/
     	          this.drivingYearsTv.setText("驾龄：" + this.driver.getDrivingYears());
     	/*          this.designatedDrivingNumTv.setText("代驾次数：" + this.driver.get);*/
-    	          this.distanceTv.setText("距离我：" + StringUtils.getLocDesc(this.driver.getDriverrange()));
+    	          this.distanceTv.setText("距离我：" + StringUtils.getLocDesc(this.driver.getRange()));
     	          if (this.driver.getSex() != 1) {
     	              str = "男";
     	              localImageView = this.sexIv;
@@ -141,7 +141,7 @@ public class DriverInfoActivity
 /*    	        this.starWarpView.removeAllViews();*/
     	          this.drivingYearsTv.setText("驾龄：" + this.driver.getDrivingYears());
     	/*          this.designatedDrivingNumTv.setText("代驾次数：" + this.driver.get);*/
-    	          this.distanceTv.setText("距离我：" + StringUtils.getLocDesc(this.driver.getDriverrange()));
+    	          this.distanceTv.setText("距离我：" + StringUtils.getLocDesc(this.driver.getRange()));
     	          if (this.driver.getSex() != 1) {
     	              str = "男";
     	              localImageView = this.sexIv;

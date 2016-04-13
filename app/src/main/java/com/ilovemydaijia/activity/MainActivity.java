@@ -122,6 +122,7 @@ public class MainActivity extends Activity
     private SimpleAdapter simpleAdapter;
     private Drawable driverMarker;
     private Button register_btn;
+    private Button logout_btn;
     private Button logins_btn;
     private RadioGroup driver_radio;
     private int state;
@@ -196,11 +197,15 @@ public class MainActivity extends Activity
         if (this.state == 1) {
             this.logins_btn.setEnabled(false);
             this.driver_radio.setEnabled(false);
+            this.logins_btn.setBackgroundResource(R.drawable.black_btn);
             this.register_btn.setOnClickListener(this);
         } else {
             this.register_btn.setEnabled(false);
+            this.register_btn.setBackgroundResource(R.drawable.black_btn);
             this.logins_btn.setOnClickListener(this);
         }
+        this.logout_btn= (Button) findViewById(R.id.logout_btn);
+        this.logout_btn.setOnClickListener(this);
         this.gasStatinBtn = findViewById(R.id.gas_station_btn);
         this.bankStation = findViewById(R.id.bank_btn);
         this.hotelBtn = findViewById(R.id.hotel_btn);
@@ -361,6 +366,7 @@ public class MainActivity extends Activity
     public void onClick(View v) {
         // TODO Auto-generated method stub
         switch (v.getId()) {
+            case R.id.logout_btn:finish();
             case R.id.gas_station_btn:
                 Intent paramView = new Intent(this, LBSActivity.class);
                 paramView.putExtra("POI_TYPE", 1);
@@ -407,14 +413,14 @@ public class MainActivity extends Activity
                 // searchDriver(locData);
                 return;
             case R.id.register_btns:
-                Intent intent=new Intent(this, DriverRegisterActivity.class);
-                intent.putExtra("USER_PHONE",this.phone);
-                intent.putExtra("POINTX",this.geoPoint.getLatitudeE6());
+                Intent intent = new Intent(this, DriverRegisterActivity.class);
+                intent.putExtra("USER_PHONE", this.phone);
+                intent.putExtra("POINTX", this.geoPoint.getLatitudeE6());
                 intent.putExtra("POINTY", this.geoPoint.getLongitudeE6());
                 startActivity(intent);
                 List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
                 localArrayList.add(new BasicNameValuePair("phone", phone));
-                this.jsonService.findDriverByPhone(localArrayList, new JSONCallBack(){
+                this.jsonService.findDriverByPhone(localArrayList, new JSONCallBack() {
 
                     @Override
                     public void onFail() {
@@ -423,34 +429,38 @@ public class MainActivity extends Activity
 
                     @Override
                     public void onSuccess(Object paramObject) {
-                        BaseInfo baseInfo=(BaseInfo)paramObject;
-                        if(baseInfo.isCode()){
-                        MainActivity.this.register_btn.setEnabled(false);
-                        MainActivity.this.logins_btn.setEnabled(true);
-                        MainActivity.this.logins_btn.setOnClickListener(MainActivity.this);
+                        BaseInfo baseInfo = (BaseInfo) paramObject;
+                        if (baseInfo.isCode()) {
+                            MainActivity.this.register_btn.setEnabled(false);
+                            MainActivity.this.register_btn.setBackgroundResource(R.drawable.black_btn);
+                            MainActivity.this.logins_btn.setEnabled(true);
+                            MainActivity.this.logins_btn.setBackgroundResource(R.drawable.black_btn);
+                            MainActivity.this.logins_btn.setOnClickListener(MainActivity.this);
                         }
                     }
                 });
                 return;
             case R.id.logins_btn:
                 String string;
-                if(this.driver_radio.getCheckedRadioButtonId()==R.id.driver_online_radio){
-                    string="1";
-                }else if(this.driver_radio.getCheckedRadioButtonId()==R.id.driver_offline_radio){
-                    string="3";
-                }else {
-                    string="2";
+                if (this.driver_radio.getCheckedRadioButtonId() == R.id.driver_online_radio) {
+                    string = "1";
+                } else if (this.driver_radio.getCheckedRadioButtonId() == R.id.driver_offline_radio) {
+                    string = "3";
+                } else {
+                    string = "2";
                 }
-                this.selectDriver(this.phone, string);return;
+                this.selectDriver(this.phone, string);
+                return;
         }
     }
-    private void selectDriver(String phone,String statusDriver){
+
+    private void selectDriver(String phone, String statusDriver) {
         UIHelper.showProgressDialog(this, "正在进行状态修改...");
         List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
         localArrayList.add(new BasicNameValuePair("phone", phone));
         localArrayList.add(new BasicNameValuePair("status", statusDriver));
-        localArrayList.add(new  BasicNameValuePair("pointX", this.geoPoint.getLatitudeE6()+""));
-        localArrayList.add(new  BasicNameValuePair("pointY", this.geoPoint.getLongitudeE6()+""));
+        localArrayList.add(new BasicNameValuePair("pointX", this.geoPoint.getLatitudeE6() + ""));
+        localArrayList.add(new BasicNameValuePair("pointY", this.geoPoint.getLongitudeE6() + ""));
         this.jsonService.changeDriver(localArrayList, new JSONCallBack() {
             @Override
             public void onFail() {
@@ -476,6 +486,7 @@ public class MainActivity extends Activity
             }
         });
     }
+
     public void searchDriver(LocationData paramLocation) {
         this.mapLoadView.setVisibility(View.VISIBLE);
         List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
@@ -494,6 +505,11 @@ public class MainActivity extends Activity
                 MainActivity.this.driverTotalPage = driverInfo.getTotalPage();
                 if (MainActivity.this.driverRefesh) {
                     MainActivity.this.nearDrivers = driverInfo.getDriver();
+                    for (DriverInfo driverInfo1 : MainActivity.this.nearDrivers) {
+                        int x = driverInfo1.getPointX() - MainActivity.this.geoPoint.getLatitudeE6();
+                        int y = driverInfo1.getPointY() - MainActivity.this.geoPoint.getLongitudeE6();
+                        driverInfo1.setRange((int) Math.sqrt( ((double)(x * x )+ (double)(y * y))));
+                    }
                 }
                 MainActivity.this.mapLoadView.setVisibility(View.GONE);
                 List<Map<String, String>> list = new ArrayList<Map<String, String>>();
@@ -539,7 +555,7 @@ public class MainActivity extends Activity
                 Bitmap bitmapg = null;
                 if (driverInfo.getStatus() == 1) {
                     bitmapg = MainActivity.this.icDriverOnLine;
-                }else if (driverInfo.getStatus() == 2) {
+                } else if (driverInfo.getStatus() == 2) {
                     bitmapg = MainActivity.this.icDriverBusy;
                 } else {
                     bitmapg = MainActivity.this.icDriverOffline;

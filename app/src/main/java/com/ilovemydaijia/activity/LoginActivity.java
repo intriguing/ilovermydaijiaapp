@@ -70,7 +70,7 @@ public class LoginActivity
     case R.id.register_btn:
       startActivity(new Intent(this, RegisterInputMobileActivity.class));
       return;
-   default:
+   case R.id.login_btn:
     SystemUtils.hideSoft(this);
     paramViewt = this.mobileEt.getText().toString();
     final String str = this.passwordEt.getText().toString();
