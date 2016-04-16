@@ -113,7 +113,7 @@
     <item name="male" type="id">false</item>
     <item name="female" type="id">false</item>
     <item name="driverYear_et" type="id">false</item>
-    <!--
+
     <item type="id" name="comment_view">false</item>
     <item type="id" name="comment_list_view">false</item>
     <item type="id" name="driver_comment_et">false</item>
@@ -123,6 +123,5 @@
     <item type="id" name="star_rank_btn4">false</item>
     <item type="id" name="star_rank_btn5">false</item>
     <item type="id" name="post_comment_btn">false</item>
-    -->
 
 </resources>

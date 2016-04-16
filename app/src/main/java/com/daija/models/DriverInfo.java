@@ -18,16 +18,8 @@ public class DriverInfo implements Serializable {
 	private int drivingYears;
 	private int pointX;
 	private int pointY;
-
-	public int getRange() {
-		return range;
-	}
-
-	public void setRange(int range) {
-		this.range = range;
-	}
-
 	private int range;
+	private int starLeave;
 	public DriverInfo(JSONObject paramJSONObject) {
 		try {
 			this.userid=paramJSONObject.getInt("id");
@@ -41,6 +33,7 @@ public class DriverInfo implements Serializable {
 			this.drivingYears=paramJSONObject.getInt("drivingYears");
 			this.pointX=paramJSONObject.getInt("pointX");
 			this.pointY=paramJSONObject.getInt("pointY");
+			this.starLeave=paramJSONObject.getInt("starLeave");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -134,5 +127,19 @@ public class DriverInfo implements Serializable {
 
 	public void setSex(int sex) {
 		this.sex = sex;
+	}
+	public int getRange() {
+		return range;
+	}
+
+	public void setRange(int range) {
+		this.range = range;
+	}
+	public int getStarLeave() {
+		return starLeave;
+	}
+
+	public void setStarLeave(int starLeave) {
+		this.starLeave = starLeave;
 	}
 }

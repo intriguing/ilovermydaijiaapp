@@ -12,6 +12,7 @@ import android.util.Log;
 
 import com.daija.models.BaseInfo;
 import com.daija.models.BaseInfos;
+import com.daija.models.CommentVosInfo;
 import com.daija.models.DriversInfo;
 import com.daijia.utils.StringUtils;
 import com.daijia.utils.ThreadManager;
@@ -23,6 +24,7 @@ public class JSONServiceImpl
     private BaseInfo baseInfo = null;
     private BaseInfos baseInfos = null;
     private DriversInfo driversInfo;
+    private CommentVosInfo commentVosInfo;
     // private BaseCodeInfo baseCodeInfo;
     private JSONCallBack paramJSONCallBackbase;
     List<NameValuePair> paramListbase;
@@ -66,20 +68,20 @@ public class JSONServiceImpl
     public void getDriverComments(List<NameValuePair> paramList,
                                   JSONCallBack paramJSONCallBack) {
         // TODO Auto-generated method stub
-        flag = false;
+        this.flag = false;
         paramJSONCallBackbase = paramJSONCallBack;
         this.paramListbase = paramList;
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
-                String str = HttpUtils.getHttpData("http://5257auto.com:8080/mycar/api/login.php", paramListbase);
+                flag = false;
+                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/driverComments", paramListbase);
                 Log.i("TAG", "R is :" + str);
                 if (str != null) {
-                    if (StringUtils.isNullOrEmpty(str)) {
+                    if (!StringUtils.isNullOrEmpty(str)) {
                         try {
-                            baseInfo = new BaseInfo(new JSONObject(str));
+                            commentVosInfo = new CommentVosInfo(new JSONObject(str));
                             flag = true;
                         } catch (JSONException e) {
-                            // TODO Auto-generated catch block
                             e.printStackTrace();
                         }
                     }
@@ -87,7 +89,7 @@ public class JSONServiceImpl
                 JSONServiceImpl.this.handler.post(new Runnable() {
                     public void run() {
                         if (flag) {
-                            paramJSONCallBackbase.onSuccess(baseInfo);
+                            paramJSONCallBackbase.onSuccess(commentVosInfo);
                         } else {
                             paramJSONCallBackbase.onFail();
                         }
@@ -142,7 +144,35 @@ public class JSONServiceImpl
     public void postDriverComment(List<NameValuePair> paramList,
                                   JSONCallBack paramJSONCallBack) {
         // TODO Auto-generated method stub
-
+        this.flag = false;
+        paramJSONCallBackbase = paramJSONCallBack;
+        this.paramListbase = paramList;
+        ThreadManager.getPool().execute(new Runnable() {
+            public void run() {
+                flag = false;
+                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/saveDriverComments", paramListbase);
+                Log.i("TAG", "R is :" + str);
+                if (str != null) {
+                    if (!StringUtils.isNullOrEmpty(str)) {
+                        try {
+                            baseInfo = new BaseInfo(new JSONObject(str));
+                            flag = true;
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                JSONServiceImpl.this.handler.post(new Runnable() {
+                    public void run() {
+                        if (flag) {
+                            paramJSONCallBackbase.onSuccess(baseInfo);
+                        } else {
+                            paramJSONCallBackbase.onFail();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override

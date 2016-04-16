@@ -126,6 +126,7 @@ public class MainActivity extends Activity
     private Button logins_btn;
     private RadioGroup driver_radio;
     private int state;
+    private LinearLayout popDriverStarWarp;
     private JSONService jsonService = new JSONServiceImpl();
     private View.OnClickListener navClickListener = new View.OnClickListener() {
         public void onClick(View paramAnonymousView) {
@@ -249,7 +250,7 @@ public class MainActivity extends Activity
         this.driverPointPopView = getLayoutInflater().inflate(R.layout.driver_point_pop_view, null);
         this.popDriverNameTv = ((TextView) this.driverPointPopView.findViewById(R.id.pop_driver_name_tv));
         this.popDriverYearsTv = ((TextView) this.driverPointPopView.findViewById(R.id.pop_driver_years_tv));
- /*   this.popDriverStarWarp = ((LinearLayout)this.driverPointPopView.findViewById(R.id.pop_driver_star_warp));*/
+        this.popDriverStarWarp = ((LinearLayout)this.driverPointPopView.findViewById(R.id.pop_driver_star_warp));
         this.driverPointPopView.setVisibility(View.GONE);
         this.driverPointPopView.setClickable(true);
         this.mapView.removeView(this.driverPointPopView);
@@ -517,7 +518,7 @@ public class MainActivity extends Activity
                     Map<String, String> map = new HashMap<String, String>();
                     map.put("name", driverInfotemp.getName());
                     map.put("info", driverInfotemp.getInfor());
-                    map.put("driverRange", "" + driverInfotemp.getDriverrange());
+                    map.put("driverRange", "" + driverInfotemp.getDriverrange()+"元");
                     map.put("_id", "" + driverInfotemp.getUserid());
                     list.add(map);
                 }
@@ -586,24 +587,24 @@ public class MainActivity extends Activity
                 public void onClick(View paramAnonymousView) {
                     Intent intent = new Intent(MainActivity.this, DriverInfoActivity.class);
                     intent.putExtra("DRIVER_INFO", localDriverInfo);
+                    intent.putExtra("USER_PHONE",MainActivity.this.phone);
                     MainActivity.this.startActivity(intent);
                 }
             });
             MainActivity.this.driverPointPopView.setVisibility(View.VISIBLE);
             if (localDriverInfo.getStatus() == 3) {
                 MainActivity.this.driverPointPopView.setBackgroundResource(R.drawable.state_offline_bg);
-                return true;
             }
             if (localDriverInfo.getStatus() == 1) {
                 MainActivity.this.driverPointPopView.setBackgroundResource(R.drawable.state_online_bg);
-                return true;
             }
             if (localDriverInfo.getStatus() == 2) {
                 MainActivity.this.driverPointPopView.setBackgroundResource(R.drawable.state_busy_bg);
-                return true;
             }
             ImageView localImageView = MainActivity.this.createStarView();
-/*    MainActivity.this.popDriverStarWarp.addView(localImageView);*/
+            MainActivity.this.popDriverStarWarp.removeAllViews();
+            for(int i=0;i<localDriverInfo.getStarLeave();i++)
+                 MainActivity.this.popDriverStarWarp.addView(localImageView);
             LinearLayout.LayoutParams localLayoutParams = (LinearLayout.LayoutParams) localImageView.getLayoutParams();
             localLayoutParams.gravity = Gravity.CENTER_VERTICAL;
             localImageView.setLayoutParams(localLayoutParams);
@@ -638,6 +639,7 @@ public class MainActivity extends Activity
             DriverInfo driverInfo = MainActivity.this.nearDrivers.get(position);
             Intent intent = new Intent(MainActivity.this, DriverInfoActivity.class);
             intent.putExtra("DRIVER_INFO", driverInfo);
+            intent.putExtra("USER_PHONE",MainActivity.this.phone);
             MainActivity.this.startActivity(intent);
         }
 
