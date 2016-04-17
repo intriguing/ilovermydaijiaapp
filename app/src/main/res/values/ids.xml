@@ -123,5 +123,5 @@
     <item type="id" name="star_rank_btn4">false</item>
     <item type="id" name="star_rank_btn5">false</item>
     <item type="id" name="post_comment_btn">false</item>
-
+    <item type="id" name="driver_DriverRange_et">false</item>
 </resources>

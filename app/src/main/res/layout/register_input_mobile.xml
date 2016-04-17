@@ -48,6 +48,7 @@
         <EditText android:id="@id/mobile_et" android:background="@drawable/edit_box" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_marginTop="10.0dip" android:hint="手机号码" android:maxLength="11" android:numeric="integer" android:singleLine="true"/>
 
         <EditText android:id="@id/info_et" android:background="@drawable/edit_box" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_marginTop="10.0dip" android:hint="用户信息" android:maxLength="11" android:singleLine="true" />
+        <EditText android:id="@id/code_et" android:background="@drawable/edit_box" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_marginTop="10.0dip" android:hint="密保信息" android:maxLength="11" android:singleLine="true" />
 
         <Button android:textSize="16.0sp" android:textColor="@color/white" android:layout_gravity="right" android:id="@id/next_btn" android:background="@drawable/orange_btn" android:layout_width="200.0dip" android:layout_height="43.0dip" android:layout_marginTop="10.0dip" android:text="注册" />
 

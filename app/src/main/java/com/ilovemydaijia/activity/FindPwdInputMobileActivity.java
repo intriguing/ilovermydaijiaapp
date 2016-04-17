@@ -51,7 +51,7 @@ public class FindPwdInputMobileActivity
                 UIHelper.showProgressDialog(this, "正在验证信息...");
                 List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
                 localArrayList.add(new BasicNameValuePair("phone", phone));
-                localArrayList.add(new BasicNameValuePair("info", string));
+                localArrayList.add(new BasicNameValuePair("code", string));
                 this.jsonService.sendFindPwdCode(localArrayList, new JSONCallBack() {
                     public void onFail() {
 

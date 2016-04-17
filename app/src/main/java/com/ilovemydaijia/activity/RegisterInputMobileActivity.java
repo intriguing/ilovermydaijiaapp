@@ -33,6 +33,7 @@ public class RegisterInputMobileActivity
     private EditText infoEt;
     private EditText userEt;
     private RadioGroup sexEtt;
+    private EditText codeEt;
     private JSONService jsonService = new JSONServiceImpl();
 
     public void onClick(final View paramView) {
@@ -46,6 +47,7 @@ public class RegisterInputMobileActivity
                 String pass = this.passEt.getText().toString();
                 String info = this.infoEt.getText().toString();
                 String user = this.userEt.getText().toString();
+                String code = this.codeEt.getText().toString();
                 String sex;
                         if(this.sexEtt.getCheckedRadioButtonId()==R.id.male){
                             sex="男";
@@ -56,6 +58,10 @@ public class RegisterInputMobileActivity
                     UIHelper.showTip(this, "请输入正确的手机号码!");
                     return;
                 }
+                if(StringUtils.isNullOrEmpty(code)){
+                    UIHelper.showTip(this, "请输入正确的密保!");
+                    return;
+                }
                 UIHelper.showProgressDialog(this, "正在进行注册...");
                 List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
                 localArrayList.add(new BasicNameValuePair("phone", string));
@@ -63,6 +69,7 @@ public class RegisterInputMobileActivity
                 localArrayList.add(new BasicNameValuePair("pass", pass));
                 localArrayList.add(new BasicNameValuePair("sex", sex));
                 localArrayList.add(new BasicNameValuePair("info", info));
+                localArrayList.add(new BasicNameValuePair("code", code));
                 this.jsonService.saveuserinfo(localArrayList, new JSONCallBack() {
                     public void onFail() {
                         if (!SystemUtils.isNetworkAvailable(RegisterInputMobileActivity.this)) {
@@ -101,6 +108,7 @@ public class RegisterInputMobileActivity
         this.passEt = (EditText) findViewById(R.id.pass_et);
         this.userEt = (EditText) findViewById(R.id.user_etd);
         this.infoEt = (EditText) findViewById(R.id.info_et);
+        this.codeEt = (EditText)findViewById(R.id.code_et);
         this.sexEtt = (RadioGroup) findViewById(R.id.sex_et);
     }
 }

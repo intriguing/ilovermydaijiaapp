@@ -41,6 +41,7 @@ public class DriverRegisterActivity extends BaseActivity implements View.OnClick
     private String phone;
     private Button button;
     private EditText driverYear_et;
+    private EditText driverRange_et;
     private View backBtn;
     private JSONService jsonService = new JSONServiceImpl();
     @Override
@@ -56,10 +57,16 @@ public class DriverRegisterActivity extends BaseActivity implements View.OnClick
                     UIHelper.showTip(this, "请输入正确的驾驶年龄!");
                     return;
                 }
+                String driverRange=this.driverRange_et.getText().toString();
+                if(StringUtils.isNullOrEmpty(driverRange)){
+                    UIHelper.showTip(this, "请输入正确的一公里单价!");
+                    return;
+                }
                 UIHelper.showProgressDialog(this, "正在进行注册...");
                 List<NameValuePair> localArrayList = new ArrayList<NameValuePair>();
                 localArrayList.add(new BasicNameValuePair("phone", this.phone));
                 localArrayList.add(new BasicNameValuePair("driverYear", driverYear));
+                localArrayList.add(new BasicNameValuePair("driverRange", driverRange));
                 localArrayList.add(new BasicNameValuePair("pointX", this.pointX+""));
                 localArrayList.add(new BasicNameValuePair("pointY", this.pointY+""));
                 this.jsonService.register(localArrayList, new JSONCallBack(){
@@ -100,6 +107,7 @@ public class DriverRegisterActivity extends BaseActivity implements View.OnClick
         this.button = (Button) findViewById(R.id.next_btn);
         this.button.setOnClickListener(this);
         this.driverYear_et = (EditText) findViewById(R.id.driverYear_et);
+        this.driverRange_et=(EditText) findViewById(R.id.driver_DriverRange_et);
         this.backBtn = findViewById(R.id.back_btn);
         this.backBtn.setOnClickListener(this);
     }

@@ -435,7 +435,7 @@ public class MainActivity extends Activity
                             MainActivity.this.register_btn.setEnabled(false);
                             MainActivity.this.register_btn.setBackgroundResource(R.drawable.black_btn);
                             MainActivity.this.logins_btn.setEnabled(true);
-                            MainActivity.this.logins_btn.setBackgroundResource(R.drawable.black_btn);
+                            MainActivity.this.logins_btn.setBackgroundResource(R.drawable.green_btn);
                             MainActivity.this.logins_btn.setOnClickListener(MainActivity.this);
                         }
                     }
