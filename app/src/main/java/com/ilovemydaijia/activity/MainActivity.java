@@ -101,6 +101,7 @@ public class MainActivity extends Activity
     private View parkingBtn;
     private View restaurantBtn;
     private View hotelBtn;
+    private View schoolBtn;
     private View gasStatinBtn;
     private View carWashBtn;
     private View bankStation;
@@ -210,6 +211,7 @@ public class MainActivity extends Activity
         this.gasStatinBtn = findViewById(R.id.gas_station_btn);
         this.bankStation = findViewById(R.id.bank_btn);
         this.hotelBtn = findViewById(R.id.hotel_btn);
+        this.schoolBtn = findViewById(R.id.school_btn);
         this.parkingBtn = findViewById(R.id.parking_btn);
         this.carWashBtn = findViewById(R.id.car_wash_btn);
         this.restaurantBtn = findViewById(R.id.restaurant_btn);
@@ -218,6 +220,7 @@ public class MainActivity extends Activity
         this.bankStation.setOnClickListener(this);
         this.hotelBtn.setOnClickListener(this);
         this.parkingBtn.setOnClickListener(this);
+        this.schoolBtn.setOnClickListener(this);
         this.carWashBtn.setOnClickListener(this);
         this.restaurantBtn.setOnClickListener(this);
         this.foursBtn.setOnClickListener(this);
@@ -402,6 +405,11 @@ public class MainActivity extends Activity
                 Intent paramView6 = new Intent(this, LBSActivity.class);
                 paramView6.putExtra("POI_TYPE", 7);
                 startActivity(paramView6);
+                return;
+            case R.id.school_btn:
+                Intent paramView7 = new Intent(this, LBSActivity.class);
+                paramView7.putExtra("POI_TYPE", 8);
+                startActivity(paramView7);
                 return;
             case R.id.list_mode_btn:
                 this.driverMapView.setVisibility(View.GONE);
@@ -601,13 +609,10 @@ public class MainActivity extends Activity
             if (localDriverInfo.getStatus() == 2) {
                 MainActivity.this.driverPointPopView.setBackgroundResource(R.drawable.state_busy_bg);
             }
-            ImageView localImageView = MainActivity.this.createStarView();
             MainActivity.this.popDriverStarWarp.removeAllViews();
-            for(int i=0;i<localDriverInfo.getStarLeave();i++)
-                 MainActivity.this.popDriverStarWarp.addView(localImageView);
-            LinearLayout.LayoutParams localLayoutParams = (LinearLayout.LayoutParams) localImageView.getLayoutParams();
-            localLayoutParams.gravity = Gravity.CENTER_VERTICAL;
-            localImageView.setLayoutParams(localLayoutParams);
+            for(int i=0;i<localDriverInfo.getStarLeave();i++){
+                ImageView localImageView = MainActivity.this.createStarView();
+                 MainActivity.this.popDriverStarWarp.addView(localImageView);}
             return true;
         }
 

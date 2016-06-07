@@ -8,6 +8,7 @@ import org.json.JSONObject;
 public class BaseInfo implements Serializable{
       private static final long serialVersionUID = 8872794255309426819L;
       boolean code;
+	  public BaseInfo(){}
       public BaseInfo(JSONObject paramJSONObject){
 		  try {
 			this.code=paramJSONObject.getBoolean("code");

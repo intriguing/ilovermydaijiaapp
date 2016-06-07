@@ -6,10 +6,16 @@ package com.ilovemydaijia.activity;
  */
 
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.daija.BaseActivity;
 import com.daija.models.BaseInfo;
@@ -36,6 +42,8 @@ import java.util.List;
  * @since ${date}-${time}
  */
 public class DriverRegisterActivity extends BaseActivity implements View.OnClickListener {
+    private String picPath;
+    private Uri photoUri=null;
     private int pointX;
     private int pointY;
     private String phone;
@@ -43,12 +51,16 @@ public class DriverRegisterActivity extends BaseActivity implements View.OnClick
     private EditText driverYear_et;
     private EditText driverRange_et;
     private View backBtn;
+    private Button uploadbutton;
     private JSONService jsonService = new JSONServiceImpl();
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back_btn:
                 finish();
+                return;
+            case R.id.upload_btn:
+                pickPhoto();
                 return;
             case R.id.next_btn:
                 SystemUtils.hideSoft(this);
@@ -69,7 +81,7 @@ public class DriverRegisterActivity extends BaseActivity implements View.OnClick
                 localArrayList.add(new BasicNameValuePair("driverRange", driverRange));
                 localArrayList.add(new BasicNameValuePair("pointX", this.pointX+""));
                 localArrayList.add(new BasicNameValuePair("pointY", this.pointY+""));
-                this.jsonService.register(localArrayList, new JSONCallBack(){
+                this.jsonService.register(this.phone,driverYear,driverRange,this.pointX+"",this.pointY+"" ,picPath,new JSONCallBack(){
                     @Override
                     public void onFail() {
                         if (!SystemUtils.isNetworkAvailable(DriverRegisterActivity.this)) {
@@ -106,9 +118,58 @@ public class DriverRegisterActivity extends BaseActivity implements View.OnClick
         this.pointY = getIntent().getIntExtra("POINTY", 0);
         this.button = (Button) findViewById(R.id.next_btn);
         this.button.setOnClickListener(this);
+        this.uploadbutton=(Button)findViewById(R.id.upload_btn);
+        this.uploadbutton.setOnClickListener(this);
         this.driverYear_et = (EditText) findViewById(R.id.driverYear_et);
         this.driverRange_et=(EditText) findViewById(R.id.driver_DriverRange_et);
         this.backBtn = findViewById(R.id.back_btn);
         this.backBtn.setOnClickListener(this);
     }
+    private void pickPhoto() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, 2);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode == Activity.RESULT_OK)
+        {
+            doPhoto(requestCode,data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+    /**
+     * 选择图片后，获取图片的路径
+     * @param requestCode
+     * @param data
+     */
+    private void doPhoto(int requestCode,Intent data)
+    {
+        if(requestCode == 2 )  //从相册取图片，有些手机有异常情况，请注意
+        {
+            if(data == null)
+            {
+                Toast.makeText(this, "选择图片文件出错", Toast.LENGTH_LONG).show();
+                return;
+            }
+            photoUri = data.getData();
+            if(photoUri == null )
+            {
+                Toast.makeText(this, "选择图片文件出错", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+        String[] pojo = {MediaStore.Images.Media.DATA};
+        Cursor cursor = managedQuery(photoUri, pojo, null, null,null);
+        if(cursor != null )
+        {
+            int columnIndex = cursor.getColumnIndexOrThrow(pojo[0]);
+            cursor.moveToFirst();
+            picPath = cursor.getString(columnIndex);
+            Toast.makeText(this, "选择图片文件成功", Toast.LENGTH_LONG).show();
+            cursor.close();
+        }
+    }
+
 }

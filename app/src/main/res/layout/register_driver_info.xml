@@ -11,7 +11,12 @@
         <TextView android:textSize="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:text="请输入你的驾驶年龄。" />
         <EditText android:id="@id/driverYear_et" android:background="@drawable/edit_box" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_marginTop="10.0dip" android:hint="驾驶年龄" android:maxLength="11" android:numeric="integer" android:singleLine="true"/>
         <EditText android:id="@id/driver_DriverRange_et" android:background="@drawable/edit_box" android:paddingLeft="10.0dip" android:paddingRight="10.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_marginTop="10.0dip" android:hint="单价" android:maxLength="11" android:numeric="integer" android:singleLine="true"/>
-        <Button android:textSize="16.0sp" android:textColor="@color/white" android:layout_gravity="right" android:id="@id/next_btn" android:background="@drawable/orange_btn" android:layout_width="200.0dip" android:layout_height="43.0dip" android:layout_marginTop="10.0dip" android:text="注册" />
+
+        <Button android:textSize="16.0sp" android:textColor="@color/white"
+            android:id="@id/upload_btn" android:background="@drawable/orange_btn" android:layout_width="140dp" android:layout_height="43.0dip" android:layout_marginTop="10.0dip" android:text="上传驾照"
+            android:layout_gravity="right" />
+
+        <Button android:textSize="16.0sp" android:textColor="@color/white" android:layout_gravity="right" android:id="@id/next_btn" android:background="@drawable/orange_btn" android:layout_width="150.0dip" android:layout_height="43.0dip" android:layout_marginTop="10.0dip" android:text="注册" />
 
     </LinearLayout>
 

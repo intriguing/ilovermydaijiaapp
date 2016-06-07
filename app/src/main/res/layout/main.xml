@@ -21,7 +21,7 @@
         <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/item_3" android:background="@drawable/bottom_nav_item" android:padding="0.0dip" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
             <ImageView android:id="@+id/sub_item_3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dip" android:src="@drawable/ic_setting_normal" />
             <TextView android:textSize="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dip" android:layout_marginBottom="3.0dip" android:text="设置" />
-        </LinearLayout>-->
+        </LinearLayout>
         <!-- <FrameLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
             <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:id="@id/item_3" android:background="@drawable/bottom_nav_item" android:padding="0.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent">
                 <ImageView android:id="@id/sub_item_3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dip" android:src="@drawable/ic_msg_normal" />
@@ -37,5 +37,5 @@
             <ImageView android:id="@id/sub_item_5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dip" android:src="@drawable/ic_setting_normal" />
             <TextView android:textSize="10.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="1.0dip" android:layout_marginBottom="3.0dip" android:text="设置" />
         </LinearLayout>-->
-    </LinearLayout> 
+    </LinearLayout>
 </RelativeLayout>

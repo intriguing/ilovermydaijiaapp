@@ -18,7 +18,7 @@ public interface JSONService
   
   void postDriverComment(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   
-  void register(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
+  void register(String phone,String driverYear,String driverRange,String pointX,String pointY,String picPath,JSONCallBack paramJSONCallBack);
   
   void searchNearDriver(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack);
   

@@ -7,12 +7,12 @@
     <ScrollView android:layout_width="fill_parent" android:layout_height="wrap_content">
         <LinearLayout android:paddingBottom="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
             <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="6.0">
-               <!--  <RelativeLayout android:id="@id/shake_btn" android:background="@drawable/app_bg" android:clickable="true" android:layout_width="120.0dip" android:layout_height="120.0dip" android:layout_marginTop="10.0dip">
+                <RelativeLayout android:id="@id/school_btn" android:background="@drawable/app_bg" android:clickable="true" android:layout_width="120.0dip" android:layout_height="120.0dip" android:layout_marginTop="10.0dip">
                     <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerInParent="true">
-                        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_shaking" />
-                        <TextView android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="摇一摇" />
+                        <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_hotel" />
+                        <TextView android:textColor="@color/black" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="学校" />
                     </LinearLayout>
-                </RelativeLayout> -->
+                </RelativeLayout>
                 <RelativeLayout android:id="@id/parking_btn" android:background="@drawable/app_bg" android:clickable="true" android:layout_width="120.0dip" android:layout_height="120.0dip" android:layout_marginTop="10.0dip">
                     <LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerInParent="true">
                         <ImageView android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@drawable/ic_parking" />

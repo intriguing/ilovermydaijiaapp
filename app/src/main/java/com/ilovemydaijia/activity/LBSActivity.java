@@ -348,6 +348,10 @@ public class LBSActivity
                 this.markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.box_4s);
                 this.keyWord = "4s店";
                 break;
+            case 8:
+                this.markerBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.box_hotel);
+                this.keyWord = "学校";
+                break;
         }
         int i = SystemUtils.getScreenWidth(this) / 15;
         this.markerBitmap = BitmapProvider.getBitmap(this.markerBitmap, i, i);

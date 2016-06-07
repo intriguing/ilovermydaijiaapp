@@ -184,9 +184,10 @@ public class DriverInfoActivity
                         Map<String, String> map = new HashMap<String, String>();
                         map.put("userName", commentVoInfo.getUserName());
                         map.put("comment", commentVoInfo.getComment());
+                        map.put("stars",commentVoInfo.getStarLevel());
                         list.add(map);
                     }
-                    DriverInfoActivity.this.commentsAdapter = new SimpleAdapter(DriverInfoActivity.this, list, R.layout.comment_list_item, new String[]{"userName", "comment"}, new int[]{R.id.name_tv, R.id.content_tv});
+                    DriverInfoActivity.this.commentsAdapter = new SimpleAdapter(DriverInfoActivity.this, list, R.layout.comment_list_item, new String[]{"userName", "comment","stars"}, new int[]{R.id.name_tv, R.id.content_tv,R.id.content_tvs});
                     DriverInfoActivity.this.driverCommentList.setAdapter(DriverInfoActivity.this.commentsAdapter);
                 }
             });

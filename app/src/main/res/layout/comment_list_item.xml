@@ -4,6 +4,11 @@
     <ImageView android:id="@id/head_iv" android:layout_width="50.0dip" android:layout_height="50.0dip" android:layout_marginLeft="3.0dip" android:src="@drawable/ic_launcher" />
     <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginLeft="5.0dip" android:layout_marginRight="5.0dip" android:layout_weight="1.0">
         <TextView android:textSize="16.0sp" android:textColor="@color/black" android:id="@id/name_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="username" />
-        <TextView android:textColor="@color/gray" android:id="@id/content_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver." />
+
+        <TextView android:textColor="@color/gray" android:id="@id/content_tvs" android:layout_width="61dp" android:layout_height="36dp" android:text="this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver."
+            android:layout_gravity="right" />
+
+        <TextView android:textColor="@color/gray" android:id="@id/content_tv" android:layout_width="265dp" android:layout_height="37dp" android:text="this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver.this is a good driver." />
+
     </LinearLayout>
 </LinearLayout>

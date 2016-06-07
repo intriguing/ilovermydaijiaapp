@@ -15,6 +15,7 @@
     <item name="register_btn" type="id">false</item>
     <item name="register_btns" type="id">false</item>
     <item name="content_tv" type="id">false</item>
+    <item name="content_tvs" type="id">false</item>
     <item name="msg_content_tv" type="id">false</item>
     <item name="next_btn" type="id">false</item>
     <item name="code_et" type="id">false</item>
@@ -54,6 +55,7 @@
     <item name="car_wash_btn" type="id">false</item>
     <item name="bank_btn" type="id">false</item>
     <item name="four_4s" type="id">false</item>
+    <item name="school_btn" type="id">false</item>
     <item name="header" type="id">false</item>
     <item name="title_tv" type="id">false</item>
     <item name="refesh_btn" type="id">false</item>
@@ -124,4 +126,5 @@
     <item type="id" name="star_rank_btn5">false</item>
     <item type="id" name="post_comment_btn">false</item>
     <item type="id" name="driver_DriverRange_et">false</item>
+    <item name="upload_btn" type="id">false</item>
 </resources>

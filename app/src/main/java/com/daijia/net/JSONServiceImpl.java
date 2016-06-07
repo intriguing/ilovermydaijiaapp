@@ -16,6 +16,7 @@ import com.daija.models.CommentVosInfo;
 import com.daija.models.DriversInfo;
 import com.daijia.utils.StringUtils;
 import com.daijia.utils.ThreadManager;
+import com.daijia.utils.Upload;
 
 public class JSONServiceImpl
         implements JSONService {
@@ -39,7 +40,7 @@ public class JSONServiceImpl
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
                 flag = false;
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/user/updatePass", paramListbase);
+                String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/user/updatePass", paramListbase);
                 Log.i("TAG", "R is :" + str);
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
@@ -74,7 +75,7 @@ public class JSONServiceImpl
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
                 flag = false;
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/driverComments", paramListbase);
+                String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/driver/driverComments", paramListbase);
                 Log.i("TAG", "R is :" + str);
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
@@ -115,7 +116,7 @@ public class JSONServiceImpl
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
                 flag = false;
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/user/login", paramListbase);
+                String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/user/login", paramListbase);
                 Log.i("TAG", "R is :" + str);
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
@@ -150,7 +151,7 @@ public class JSONServiceImpl
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
                 flag = false;
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/saveDriverComments", paramListbase);
+                String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/driver/saveDriverComments", paramListbase);
                 Log.i("TAG", "R is :" + str);
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
@@ -176,26 +177,23 @@ public class JSONServiceImpl
     }
 
     @Override
-    public void register(List<NameValuePair> paramList, JSONCallBack paramJSONCallBack) {
+    public void register(final String phone, final String driverYear, final String driverRange, final String pointX, final String pointY, final String picPath, JSONCallBack paramJSONCallBack) {
         // TODO Auto-generated method stub
         flag = false;
         paramJSONCallBackbase = paramJSONCallBack;
-        this.paramListbase = paramList;
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
                 flag = false;
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/register", paramListbase);
+                if(Upload.uploadpic("http://23.94.123.193:8080/daijia/driver/register", picPath, driverYear, phone, driverRange, pointX, pointY)){
+
+                /*String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/driver/register", paramListbase);
                 Log.i("TAG", "R is :" + str);
                 if (str != null) {
-                    if (!StringUtils.isNullOrEmpty(str)) {
-                        try {
-                            baseInfo = new BaseInfo(new JSONObject(str));
+                    if (!StringUtils.isNullOrEmpty(str)) {*/
+                            baseInfo = new BaseInfo();
+                            baseInfo.setCode(true);
                             flag = true;
-                        } catch (JSONException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    }
+
                 }
                 JSONServiceImpl.this.handler.post(new Runnable() {
                     public void run() {
@@ -220,7 +218,7 @@ public class JSONServiceImpl
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
                 flag = false;
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/searchNearDriver", paramListbase);
+                String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/driver/searchNearDriver", paramListbase);
                 Log.i("TAG", "R is :" + str);
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
@@ -256,7 +254,7 @@ public class JSONServiceImpl
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
                 flag = false;
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/user/validate", paramListbase);
+                String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/user/validate", paramListbase);
                 Log.i("TAG", "R is :" + str);
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
@@ -311,7 +309,7 @@ public class JSONServiceImpl
         this.paramListbase = localArrayList;
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/user/register", paramListbase);
+                String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/user/register", paramListbase);
                 flag = false;
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
@@ -345,7 +343,7 @@ public class JSONServiceImpl
         this.paramListbase = localArrayList;
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/driverStatus", paramListbase);
+                String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/driver/driverStatus", paramListbase);
                 flag = false;
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
@@ -378,7 +376,7 @@ public class JSONServiceImpl
         this.paramListbase = localArrayList;
         ThreadManager.getPool().execute(new Runnable() {
             public void run() {
-                String str = HttpUtils.getHttpData("http://192.168.31.111:8181/daijia/driver/driverByPhone", paramListbase);
+                String str = HttpUtils.getHttpData("http://23.94.123.193:8080/daijia/driver/driverByPhone", paramListbase);
                 flag = false;
                 if (str != null) {
                     if (!StringUtils.isNullOrEmpty(str)) {
